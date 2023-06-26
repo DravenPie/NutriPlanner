@@ -4,6 +4,7 @@ services:
     build: ./front
     ports:
       - "19000:19000"
+      - "19006:19006"
     volumes:
       - ./front:/usr/app/front
       - /usr/app/front/node_modules
