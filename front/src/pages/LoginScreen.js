@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, StatusBar, View, Text, TextInput } from 'reac
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Input, Icon } from 'react-native-elements';
 import set_padding from '../utils/utils';
+import LoginScreenButton from '../components/LoginScreenButton';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -20,6 +21,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={[styles.header, /*styles.debug*/]}>
           <Text style={[styles.headerText, /*styles.debug*/]}>Login</Text>
         </View>
+
         <View style={[styles.formView, styles.debug]}>
           <Input
             containerStyle={[styles.credentialsContainer, styles.debug]}
@@ -31,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
             <Icon
                 name="envelope"
                 type="font-awesome"
-                size={RFPercentage(3)}
+                size={RFPercentage(2.05)}
                 color="#999"
               />
             }
@@ -52,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
             <Icon
                 name="lock"
                 type="font-awesome"
-                size={RFPercentage(4.3)}
+                size={RFPercentage(3)}
                 color="#999"
               />
             }
@@ -60,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
               <Icon
                   name={iconEye}
                   type="font-awesome"
-                  size={RFPercentage(4.3)}
+                  size={RFPercentage(3)}
                   color="#999"
                   onPress={() => { secureTextToggleState() }}
                 />
@@ -71,7 +73,15 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={setPassword}
             secureTextEntry={secureText}
           />
+
+          <LoginScreenButton title={"Entrar"} navigateTo={() => { navigation.navigate('Home') }}/>
         </View>
+
+        {/* <View style={styles.footer}>
+              <Text>
+                <Text></Text>
+              </Text>
+        </View> */}
       </SafeAreaView>
   )
 }
@@ -80,24 +90,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop:StatusBar.currentHeight,
-    ...set_padding(5)
+    ...set_padding(5),
+    backgroundColor: '#eef8e9',
   },
 
   header: {
     justifyContent: 'flex-end',
-    height: '10%',
+    height: '18%',
   },
   headerText: {
     fontSize: RFPercentage(3.5),
+    color: '#386641',
   },
 
   formView: {
-    height: '40%',
+    height: '45%',
     paddingTop: '10%',
   },
   credentialsContainer: {
-    ...set_padding(0),
-    paddingBottom: 0
+    ...set_padding(2, 0),
   },
   credentialsLabel: {
     fontSize: RFPercentage(2),
@@ -105,12 +116,15 @@ const styles = StyleSheet.create({
   credentialsInput: {
     width: '100%',
     borderWidth: 1,
+    borderColor: '#a2a2a6',
     ...set_padding(0, 3),
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
   },
 
   debug: {
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
 });
 
