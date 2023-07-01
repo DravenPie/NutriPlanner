@@ -1,19 +1,17 @@
-import { StatusBar, StyleSheet } from 'react-native';
-import { setDebug, setMinMaxDimensions, setPadding } from '@styles/utils';
+import { setDebug, setDefaultContainer, setPadding } from '@styles/utils';
 
+import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
 
 const styles = StyleSheet.create({
   container: {
-    ...setMinMaxDimensions(),
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-    ...setPadding(20),
+    ...setDefaultContainer(),
+    
     backgroundColor: colors.lightGreen,
   },
 
   header: {
-    height: '10%',
+    height: 90,
     justifyContent: 'flex-end',
   },
   headerText: {
@@ -22,8 +20,8 @@ const styles = StyleSheet.create({
   },
 
   formView: {
-    height: '60%',
-    paddingTop: 50,
+    height: 385,
+    paddingTop: 40,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -35,20 +33,23 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    height: '30%',
+    height: 195,
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingBottom: 20,
   },
   footerText: {
     fontSize: 15,
+    color: colors.black,
   },
   footerTextSpam: {
     color: colors.red,
     fontWeight: 'bold',
   },
 
-  ...setDebug(false),
+  debug: {
+    ...setDebug(false)
+  },
 });
 
 export default styles;

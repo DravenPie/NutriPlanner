@@ -15,7 +15,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.white,
   },
-  ...setDebug(false)
+  
+  debug: {
+    ...setDebug(false)
+  },
 });
 
 export default styles;

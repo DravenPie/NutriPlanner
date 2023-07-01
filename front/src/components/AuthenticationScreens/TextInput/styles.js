@@ -4,10 +4,6 @@ import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 13,
-    color: colors.black,
-  },
   inputContainer: {
     width: '100%',
     borderWidth: 1,
@@ -22,9 +18,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.black,
     selectionColor: 'grey',
+    height: 48
   },
 
-  ...setDebug(false),
+  debug: {
+    ...setDebug(false)
+  },
 });
 
 export default styles;

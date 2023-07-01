@@ -7,7 +7,6 @@ const TextInput = ({
   leftIconContainerStyle,
   rightIcon,
   rightIconContainerStyle,
-  label,
   placeholder,
   value,
   onChangeText,
@@ -17,7 +16,6 @@ const TextInput = ({
   return (
     <Input
       containerStyle={styles.debug}
-      labelStyle={[styles.label, styles.debug]}
       inputContainerStyle={[styles.inputContainer, styles.debug]}
       inputStyle={[styles.input, styles.debug]}
 
@@ -26,7 +24,6 @@ const TextInput = ({
       rightIcon={rightIcon}
       rightIconContainerStyle={rightIconContainerStyle}
 
-      label={label}
       placeholder={placeholder}
       placeholderTextColor={colors.lightGrey}
 
