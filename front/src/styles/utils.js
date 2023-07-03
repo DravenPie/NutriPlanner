@@ -1,6 +1,6 @@
 import { StatusBar } from "react-native"
 
-const setMinMaxDimensions = () => {
+const minMaxDimensions = () => {
   const [minWindowWidth, minWindowHeight,
     maxWindowWidth, maxWindowHeight] = [360, 665, 800, 1280]
 
@@ -10,7 +10,7 @@ const setMinMaxDimensions = () => {
   }
 }
 
-const setPadding = (a, b, c, d) => {
+const padding = (a, b, c, d) => {
   return {
     paddingTop: a,
     paddingRight: b !== undefined ? b : a,
@@ -22,17 +22,17 @@ const setPadding = (a, b, c, d) => {
   }
 }
 
-const setDefaultContainer = () => {
+const defaultContainer = () => {
   return {
-    ...setMinMaxDimensions(),
-    ...setPadding(20),
+    ...minMaxDimensions(),
+    ...padding(20),
 
     flex: 1,
     marginTop: StatusBar.currentHeight,
   }
 }
 
-const setDebug = (bool) => {
+const debug = (bool) => {
   if (bool) {
     return {
       borderWidth: 1,
@@ -43,4 +43,4 @@ const setDebug = (bool) => {
   return {}
 }
 
-export { setDefaultContainer, setDebug, setPadding };
+export { defaultContainer, debug, padding };

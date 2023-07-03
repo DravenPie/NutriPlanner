@@ -1,11 +1,11 @@
-import { setDebug, setDefaultContainer, setPadding } from '@styles/utils';
+import { debug, defaultContainer, padding } from '@styles/utils';
 
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
 
 const styles = StyleSheet.create({
   container: {
-    ...setDefaultContainer(),
+    ...defaultContainer(),
 
     backgroundColor: colors.lightGreen,
   },
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 
   formView: {
-    ...setPadding(40, 0),
+    ...padding(40, 0),
 
     height: 580,    
     alignItems: 'center',
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     width: '10%',
     alignItems: 'center',
     justifyContent: 'center',
-    ...setPadding(0),
+    ...padding(0),
   },
 
   debug: {
-    ...setDebug(false)
+    ...debug(false)
   },
 });
 

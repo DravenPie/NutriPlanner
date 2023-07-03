@@ -1,19 +1,22 @@
+import { StatusBar } from "react-native"
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
 import { debug } from '@styles/utils';
 
 const styles = StyleSheet.create({
-  button: {
-    width: '95%',
-    height: 45,
-    backgroundColor: colors.darkGreen,
+  container: {
+    marginTop: StatusBar.currentHeight,
+
+    width: '100%',
+    height: 40,
+    backgroundColor: colors.lightGreen,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
   },
-  buttonText: {
-    fontSize: 15,
-    color: colors.white,
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.black,
   },
   
   debug: {

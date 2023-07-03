@@ -1,6 +1,7 @@
-import Home from '@pages/Home';
+import Header from 'components/HomeScreen/Header'
 import LoginScreen from '@pages/LoginScreen';
 import SignUpScreen from '@pages/SignUpScreen';
+import TopTabNavigator from './TopTabNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
@@ -19,9 +20,12 @@ const StackNavigator = ({ initialRouteName }) => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='Home'
-        component={Home}
-      // options={{ headerShown: false }}
+        name='HomeScreen'
+        component={TopTabNavigator}
+        initialParams={{ initialRouteName: 'Home' }}
+        options={{
+          header: (props) => (<Header/>),
+        }}
       />
     </Stack.Navigator>
   )

@@ -84,7 +84,7 @@ const LoginScreen = ({ navigation }) => {
               />
             </View>
 
-            <Button title={"Entrar"} navigateTo={() => { navigation.navigate('Home') }} />
+            <Button title={"Entrar"} navigateTo={() => { navigation.navigate('HomeScreen') }} />
           </View>
 
           <View style={[styles.footer, styles.debug]}>
