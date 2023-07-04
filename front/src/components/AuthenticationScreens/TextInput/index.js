@@ -1,5 +1,6 @@
 import { Input } from 'react-native-elements';
 import { colors } from '@styles/colors';
+import { debug } from '@styles/global';
 import styles from './styles';
 
 const TextInput = ({
@@ -15,9 +16,9 @@ const TextInput = ({
 }) => {
   return (
     <Input
-      containerStyle={styles.debug}
-      inputContainerStyle={[styles.inputContainer, styles.debug]}
-      inputStyle={[styles.input, styles.debug]}
+      containerStyle={debug}
+      inputContainerStyle={[styles.inputContainer, debug]}
+      inputStyle={[styles.input, debug]}
 
       leftIcon={leftIcon}
       leftIconContainerStyle={leftIconContainerStyle}

@@ -1,4 +1,4 @@
-import Header from 'components/HomeScreen/Header'
+import Header from 'components/Header'
 import LoginScreen from '@pages/LoginScreen';
 import SignUpScreen from '@pages/SignUpScreen';
 import TopTabNavigator from './TopTabNavigator';
@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = ({ initialRouteName }) => {
+const StackNavigator = ({ initialRouteName='LoginScreen' }) => {
   return (
     <Stack.Navigator initialRouteName={initialRouteName}>
       <Stack.Screen
@@ -22,9 +22,9 @@ const StackNavigator = ({ initialRouteName }) => {
       <Stack.Screen
         name='HomeScreen'
         component={TopTabNavigator}
-        initialParams={{ initialRouteName: 'Home' }}
+        initialParams={{ initialRouteName: 'ProfileScreen' }}
         options={{
-          header: (props) => (<Header/>),
+          header: () => <Header/>,
         }}
       />
     </Stack.Navigator>

@@ -2,7 +2,7 @@ import { SafeAreaView, View } from 'react-native';
 
 import styles from './styles';
 
-const Home = ({ navigation }) => {
+const DailyRequirementsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View></View>
@@ -10,4 +10,4 @@ const Home = ({ navigation }) => {
   )
 }
 
-export default Home;
+export default DailyRequirementsScreen;

@@ -1,7 +1,8 @@
-import { debug, padding } from '@styles/utils';
+import { moderateScale, verticalScale } from 'styles/metrics';
 
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
+import { padding } from '@styles/global';
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -10,19 +11,15 @@ const styles = StyleSheet.create({
     borderColor: colors.lightGrey,
     ...padding(0, 5),
     backgroundColor: colors.white,
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
   },
   input: {
     ...padding(0, 5),
-    borderRadius: 5,
-    fontSize: 15,
+    borderRadius: moderateScale(5),
+    fontSize: moderateScale(15),
     color: colors.black,
     selectionColor: 'grey',
-    height: 48
-  },
-
-  debug: {
-    ...debug(false)
+    height: verticalScale(48)
   },
 });
 

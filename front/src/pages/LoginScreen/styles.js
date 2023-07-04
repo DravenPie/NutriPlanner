@@ -1,4 +1,5 @@
-import { debug, defaultContainer, padding } from '@styles/utils';
+import { debug, defaultContainer, padding } from '@styles/global';
+import { moderateScale, verticalScale } from 'styles/metrics';
 
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
@@ -11,17 +12,17 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    height: 90,
+    height: verticalScale(90),
     justifyContent: 'flex-end',
   },
   headerText: {
-    fontSize: 25,
+    fontSize: moderateScale(25),
     color: colors.darkGreen,
   },
 
   formView: {
-    height: 385,
-    paddingTop: 40,
+    height: verticalScale(385),
+    paddingTop: verticalScale(40),
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -33,22 +34,18 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    height: 195,
+    height: verticalScale(195),
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: 20,
+    paddingBottom: verticalScale(20),
   },
   footerText: {
-    fontSize: 15,
+    fontSize: moderateScale(15),
     color: colors.black,
   },
   footerTextSpam: {
     color: colors.red,
     fontWeight: 'bold',
-  },
-
-  debug: {
-    ...debug(false)
   },
 });
 

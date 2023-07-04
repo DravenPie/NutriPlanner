@@ -1,23 +1,20 @@
+import { moderateScale, verticalScale } from 'styles/metrics';
+
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
-import { debug } from '@styles/utils';
 
 const styles = StyleSheet.create({
   button: {
     width: '95%',
-    height: 45,
+    height: verticalScale(45),
     backgroundColor: colors.darkGreen,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
   },
   buttonText: {
-    fontSize: 15,
+    fontSize: moderateScale(15),
     color: colors.white,
-  },
-  
-  debug: {
-    ...debug(false)
   },
 });
 

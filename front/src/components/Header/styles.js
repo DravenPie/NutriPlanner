@@ -1,26 +1,23 @@
+import { moderateScale, verticalScale } from "styles/metrics";
+
 import { StatusBar } from "react-native"
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
-import { debug } from '@styles/utils';
 
 const styles = StyleSheet.create({
   container: {
     marginTop: StatusBar.currentHeight,
 
     width: '100%',
-    height: 40,
-    backgroundColor: colors.lightGreen,
+    height: verticalScale(40),
+    backgroundColor: colors.mediumGreen,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
-    color: colors.black,
-  },
-  
-  debug: {
-    ...debug(false)
+    color: colors.white,
   },
 });
 

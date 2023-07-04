@@ -1,14 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
-import StackNavigator from 'navigation/StackNavigator';
+import StackNavigator from 'routes/StackNavigator';
 
 const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <StackNavigator
-          initialRouteName={'LoginScreen'}
-        />
+        <StackNavigator initialRouteName={'LoginScreen'}/>
       </NavigationContainer>
     </SafeAreaView>
   );
