@@ -34,18 +34,6 @@ const EyeIcon = ({ active, size, color, onPress }) => (
   />
 );
 
-const ArrowLeftIcon = ({ size, color, onPress }) => (
-  <Icon
-    name="arrow-left"
-    type="feather"
-    size={moderateScale(size)}
-    color={color}
-    containerStyle={[{ alignItems: 'flex-start' }, debug ]}
-    iconStyle={[styles.iconStyle, debug]}
-    onPress={onPress}
-  />
-);
-
 const UserIcon = ({ size, color }) => (
   <Icon
     name="user"
@@ -110,7 +98,6 @@ export {
   EnvelopeIcon,
   LockIcon,
   EyeIcon,
-  ArrowLeftIcon,
   UserIcon,
   BookIcon,
   ClipboardIcon,

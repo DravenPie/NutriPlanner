@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, EnvelopeIcon, EyeIcon, LockIcon } from '@components/Icons';
+import { EnvelopeIcon, EyeIcon, LockIcon } from '@components/Icons';
 import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 import Button from '@components/AuthenticationScreens/Button'
@@ -34,11 +34,6 @@ const SignUpScreen = ({ navigation }) => {
           decelerationRate={0.9}
         >
           <View style={[styles.header, debug]}>
-            <ArrowLeftIcon
-              size={35}
-              color={colors.darkGrey}
-              onPress={ () => { navigation.goBack() } }
-            />
             <Text style={[styles.headerText, debug]}>Sign Up</Text>
           </View>
 

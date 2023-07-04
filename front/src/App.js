@@ -6,7 +6,7 @@ const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <StackNavigator initialRouteName={'LoginScreen'}/>
+        <StackNavigator/>
       </NavigationContainer>
     </SafeAreaView>
   );

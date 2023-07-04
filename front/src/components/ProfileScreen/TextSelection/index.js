@@ -5,7 +5,7 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 
-const TextSelection = ({ placeholder, value, onPress, ...props }) => {
+const TextSelection = ({ placeholder, value, onPress }) => {
   return (
     <View style={[styles.container, debug]}>
       <Text style={[styles.placeholder, debug]}>{placeholder}</Text>
@@ -19,7 +19,8 @@ const TextSelection = ({ placeholder, value, onPress, ...props }) => {
           numberOfLines={1} 
           ellipsizeMode="tail"
         >
-          {value}</Text>
+          {value}
+        </Text>
         <ChevronRightIcon size={25} color={colors.black}/>
       </TouchableOpacity>
     </View>

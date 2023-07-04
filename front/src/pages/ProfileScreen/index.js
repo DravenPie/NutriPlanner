@@ -62,6 +62,17 @@ const ProfileScreen = ({ navigation }) => {
             <TextSelection
               placeholder="Sexo"
               value={''}  // vai dar get na api
+              // onPress={() => {
+              //   navigation.navigate('SexSelectionScreen', {
+              //     params: { 
+              //       name: 'sex',
+              //       itemList: [
+              //         ['Masculino', undefined],
+              //         ['Feminino', undefined]
+              //       ],
+              //     },
+              //   });
+              // }}
             />
 
             <TextSelection

@@ -1,14 +1,24 @@
 import Header from '@components/Header'
 import LoginScreen from '@pages/LoginScreen';
+import SelectionScreen from '@components/ProfileScreen/SelectionSreen';
 import SignUpScreen from '@pages/SignUpScreen';
-import TopTabNavigator from './TopTabNavigator';
+import TopbarNavigator from './TopBarNavigator';
+import { colors } from '@styles/colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { verticalScale } from 'styles/metrics';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = ({ initialRouteName='LoginScreen' }) => {
+const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShadowVisible: false,
+        headerTintColor: colors.darkGrey,
+        headerStyle: { backgroundColor: colors.lightGreen },
+        headerTitle: '',
+      }}
+    >
       <Stack.Screen
         name='LoginScreen'
         component={LoginScreen}
@@ -17,14 +27,22 @@ const StackNavigator = ({ initialRouteName='LoginScreen' }) => {
       <Stack.Screen
         name='SignUpScreen'
         component={SignUpScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='HomeScreen'
-        component={TopTabNavigator}
-        initialParams={{ initialRouteName: 'ProfileScreen' }}
+        name='Home'
+        component={TopbarNavigator}
         options={{
-          header: () => <Header/>,
+          header: () => <Header />,
+        }}
+      />
+
+      <Stack.Screen
+        name='SexSelectionScreen'
+        component={SelectionScreen}
+        options={{
+          headerStyle: { backgroundColor: colors.mediumGreen },
+          headerTintColor: colors.black,
+          headerTitle: 'Sexo'
         }}
       />
     </Stack.Navigator>

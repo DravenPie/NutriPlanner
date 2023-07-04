@@ -8,6 +8,7 @@ const colors = {
     black: '#312E49',
     red: '#BC4749',
     darkWhite: '#eeeeee',
+    lightBlue: '#9FD7FF',
 }
 
 export { colors };

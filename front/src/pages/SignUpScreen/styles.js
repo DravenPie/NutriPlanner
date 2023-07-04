@@ -7,12 +7,12 @@ import { colors } from '@styles/colors';
 const styles = StyleSheet.create({
   container: {
     ...defaultContainer(),
+    marginTop: 0,
 
     backgroundColor: colors.lightGreen,
   },
   header: {
-    height: verticalScale(90),
-    justifyContent: 'space-between',
+    height: verticalScale(40),
   },
   headerText: {
     fontSize: moderateScale(25),
