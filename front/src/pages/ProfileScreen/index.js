@@ -1,4 +1,5 @@
 import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { SelectionScreenModal, toggleModal } from 'components/ProfileScreen/SelectionScreenModal';
 
 import TextInput from '@components/ProfileScreen/TextInput'
 import TextSelection from '@components/ProfileScreen/TextSelection';
@@ -12,6 +13,7 @@ const ProfileScreen = ({ navigation }) => {
   const [userHeight, setUserHeight] = useState('');  // vai dar get na api
   const [userWeight, setUserWeight] = useState('');  // vai dar get na api
   const [userAge, setUserAge] = useState('');  // vai dar get na api
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const handleWeightChange = (text) => {
     // Expressão regular para validar o formato (###.##)
@@ -19,6 +21,10 @@ const ProfileScreen = ({ navigation }) => {
     
     // Verifica se o valor corresponde à expressão regular
     if (regex.test(text)) setUserWeight(text);
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
   };
 
   return (
@@ -62,6 +68,7 @@ const ProfileScreen = ({ navigation }) => {
             <TextSelection
               placeholder="Sexo"
               value={''}  // vai dar get na api
+              onPress={() => { toggleModal() }}
               // onPress={() => {
               //   navigation.navigate('SexSelectionScreen', {
               //     params: { 
@@ -126,6 +133,13 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <SelectionScreenModal
+        name="Sex"
+        labelList={['Masculino', 'Feminino']}
+        isVisible={isModalVisible}
+        onToggleModal={toggleModal}
+      />
     </SafeAreaView>
   )
 }

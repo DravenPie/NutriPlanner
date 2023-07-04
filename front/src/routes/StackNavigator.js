@@ -1,6 +1,6 @@
 import Header from '@components/Header'
 import LoginScreen from '@pages/LoginScreen';
-import SelectionScreen from '@components/ProfileScreen/SelectionSreen';
+import SelectionScreen from '@components/ProfileScreen/SelectionScreen';
 import SignUpScreen from '@pages/SignUpScreen';
 import TopbarNavigator from './TopBarNavigator';
 import { colors } from '@styles/colors';
