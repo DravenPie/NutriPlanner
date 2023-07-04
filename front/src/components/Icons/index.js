@@ -52,6 +52,7 @@ const UserIcon = ({ size, color }) => (
     type="feather"
     size={size}
     color={color}
+    iconStyle={[styles.iconStyle, debug]}
   />
 );
 
@@ -61,6 +62,7 @@ const BookIcon = ({ size, color }) => (
     type="feather"
     size={size}
     color={color}
+    iconStyle={[styles.iconStyle, debug]}
   />
 );
 
@@ -70,6 +72,7 @@ const ClipboardIcon = ({ size, color }) => (
     type="feather"
     size={size}
     color={color}
+    iconStyle={[styles.iconStyle, debug]}
   />
 );
 
@@ -79,6 +82,7 @@ const PieChartIcon = ({ size, color }) => (
     type="feather"
     size={size}
     color={color}
+    iconStyle={[styles.iconStyle, debug]}
   />
 );
 
@@ -88,7 +92,29 @@ const CalendarIcon = ({ size, color }) => (
     type="feather"
     size={size}
     color={color}
+    iconStyle={[styles.iconStyle, debug]}
   />
 );
 
-export { EnvelopeIcon, LockIcon, EyeIcon, ArrowLeftIcon, UserIcon, BookIcon, ClipboardIcon, PieChartIcon, CalendarIcon };
+const ChevronRightIcon = ({ size, color }) => (
+  <Icon
+    name="chevron-right"
+    type="feather"
+    size={size}
+    color={color}
+    iconStyle={[styles.iconStyle, debug]}
+  />
+);
+
+export { 
+  EnvelopeIcon,
+  LockIcon,
+  EyeIcon,
+  ArrowLeftIcon,
+  UserIcon,
+  BookIcon,
+  ClipboardIcon,
+  PieChartIcon,
+  CalendarIcon,
+  ChevronRightIcon
+};

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(5),
     fontSize: moderateScale(15),
     color: colors.black,
-    selectionColor: 'grey',
     height: verticalScale(48)
   },
 });
