@@ -1,4 +1,4 @@
-import { moderateScale, verticalScale } from 'styles/metrics';
+import { moderateScale, verticalScale } from '@styles/metrics';
 
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';

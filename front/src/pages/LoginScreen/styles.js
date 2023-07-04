@@ -1,5 +1,5 @@
-import { debug, defaultContainer, padding } from '@styles/global';
-import { moderateScale, verticalScale } from 'styles/metrics';
+import { defaultContainer, padding } from '@styles/global';
+import { moderateScale, verticalScale } from '@styles/metrics';
 
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';

@@ -1,4 +1,4 @@
-import Header from 'components/Header'
+import Header from '@components/Header'
 import LoginScreen from '@pages/LoginScreen';
 import SignUpScreen from '@pages/SignUpScreen';
 import TopTabNavigator from './TopTabNavigator';

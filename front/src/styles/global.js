@@ -1,7 +1,6 @@
-import { horizontalScale, verticalScale } from "./metrics";
+import { horizontalScale, minMaxDimensions, verticalScale } from "./metrics";
 
 import { StatusBar } from "react-native";
-import { minMaxDimensions } from "./metrics";
 
 const debug = {
   // borderWidth: 1,

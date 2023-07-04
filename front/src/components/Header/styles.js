@@ -1,7 +1,6 @@
-import { moderateScale, verticalScale } from "styles/metrics";
+import { StatusBar, StyleSheet } from 'react-native';
+import { moderateScale, verticalScale } from "@styles/metrics";
 
-import { StatusBar } from "react-native"
-import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
 
 const styles = StyleSheet.create({
