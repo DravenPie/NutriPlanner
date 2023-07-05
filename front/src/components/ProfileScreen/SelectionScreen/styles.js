@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     height: verticalScale(70),
   },
   content: {
+    width: '80%',
     justifyContent: 'space-between'
   },
   contentLabel: {

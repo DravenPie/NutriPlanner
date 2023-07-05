@@ -26,7 +26,7 @@ const SignUpScreen = ({ navigation }) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
-        keyboardVerticalOffset={verticalScale(25)}
+        keyboardVerticalOffset={verticalScale(80)}
       >
         <ScrollView
           style={{ width: '100%' }}

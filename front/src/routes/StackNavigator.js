@@ -5,7 +5,6 @@ import SignUpScreen from '@pages/SignUpScreen';
 import TopbarNavigator from './TopBarNavigator';
 import { colors } from '@styles/colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { verticalScale } from 'styles/metrics';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,12 +36,30 @@ const StackNavigator = () => {
       />
 
       <Stack.Screen
-        name='SexSelectionScreen'
+        name='ActivityLevelScreen'
         component={SelectionScreen}
         options={{
           headerStyle: { backgroundColor: colors.mediumGreen },
           headerTintColor: colors.black,
-          headerTitle: 'Sexo'
+          headerTitle: 'Nível de atividade'
+        }}
+      />
+      <Stack.Screen
+        name='GoalScreen'
+        component={SelectionScreen}
+        options={{
+          headerStyle: { backgroundColor: colors.mediumGreen },
+          headerTintColor: colors.black,
+          headerTitle: 'Objetivo'
+        }}
+      />
+      <Stack.Screen
+        name='DietTypeScreen'
+        component={SelectionScreen}
+        options={{
+          headerStyle: { backgroundColor: colors.mediumGreen },
+          headerTintColor: colors.black,
+          headerTitle: 'Tipo de dieta'
         }}
       />
     </Stack.Navigator>

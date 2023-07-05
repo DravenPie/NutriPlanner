@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { SelectionScreenModal, toggleModal } from 'components/ProfileScreen/SelectionScreenModal';
 
+import { SelectionScreenModal } from 'components/ProfileScreen/SelectionScreenModal';
 import TextInput from '@components/ProfileScreen/TextInput'
 import TextSelection from '@components/ProfileScreen/TextSelection';
 import { colors } from '@styles/colors';
@@ -13,7 +13,11 @@ const ProfileScreen = ({ navigation }) => {
   const [userHeight, setUserHeight] = useState('');  // vai dar get na api
   const [userWeight, setUserWeight] = useState('');  // vai dar get na api
   const [userAge, setUserAge] = useState('');  // vai dar get na api
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [userSex, setUserSex] = useState('');  // vai dar get na api
+  const [userActivityLevel, setUserActivityLevel] = useState('');  // vai dar get na api
+  const [userGoal, setUserGoal] = useState('');  // vai dar get na api
+  const [userDietType, setUserDietType] = useState('');  // vai dar get na api
+  const [isSexModalVisible, setSexModalVisible] = useState(false);
 
   const handleWeightChange = (text) => {
     // Expressão regular para validar o formato (###.##)
@@ -24,7 +28,7 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    setSexModalVisible(!isSexModalVisible);
   };
 
   return (
@@ -67,34 +71,65 @@ const ProfileScreen = ({ navigation }) => {
 
             <TextSelection
               placeholder="Sexo"
-              value={''}  // vai dar get na api
+              value={userSex}
               onPress={() => { toggleModal() }}
-              // onPress={() => {
-              //   navigation.navigate('SexSelectionScreen', {
-              //     params: { 
-              //       name: 'sex',
-              //       itemList: [
-              //         ['Masculino', undefined],
-              //         ['Feminino', undefined]
-              //       ],
-              //     },
-              //   });
-              // }}
             />
 
             <TextSelection
               placeholder="Nível de atividade"
-              value={''}  // vai dar get na api
+              value={userActivityLevel}
+              onPress={() => {
+                navigation.navigate('ActivityLevelScreen', {
+                  params: { 
+                    name: 'activityLevel',
+                    itemList: [
+                      ['Baixo', 'Pouquíssimo exercício ou nenhum'],
+                      ['Moderado', 'Pouco exercício, 1 a 3 vezes por semana'],
+                      ['Alto', 'Exercício moderado, 3 a 5 vezes por semana'],
+                      ['Muito alto', 'Exercício intenso, 6 a 7 vezes por semana'],
+                      ['Hiperativo', 'Exercício muito intenso, atividade física, 2 horas ou mais']
+                    ],
+                  },
+                });
+              }}
             />
 
             <TextSelection
               placeholder="Objetivo"
-              value={''}  // vai dar get na api
+              value={userGoal}
+              onPress={() => {
+                navigation.navigate('GoalScreen', {
+                  params: { 
+                    name: 'goal',
+                    itemList: [
+                      ['Perder peso', 'Diminuir os requisitos calóricos em 20%'],
+                      ['Perder peso lentamente', 'Diminuir os requisitos calóricos em 10%'],
+                      ['Manter peso', 'Não alterar os requisitos calóricos'],
+                      ['Aumentar o peso lentamente', 'Aumentar os requisitos calóricos em 10%'],
+                      ['Aumentar o peso', 'Aumentar os requisitos calóricos em 20%']
+                    ],
+                  },
+                });
+              }}
             />
 
             <TextSelection
               placeholder="Tipo de dieta"
-              value={''}  // vai dar get na api
+              value={userDietType}
+              onPress={() => {
+                navigation.navigate('DietTypeScreen', {
+                  params: { 
+                    name: 'dietType',
+                    itemList: [
+                      ['Padrão', '50% Carboidratos, 20% Proteínas, 30% Gorduras'],
+                      ['Equilibrado', '50% Carboidratos, 25% Proteínas, 25% Gorduras'],
+                      ['Pobre em gorduras', '60% Carboidratos, 25% Proteínas, 15% Gorduras'],
+                      ['Rico em proteínas', '25% Carboidratos, 40% Proteínas, 35% Gorduras'],
+                      ['Cetogénica', '5% Carboidratos, 30% Proteínas, 65% Gorduras']
+                    ],
+                  },
+                });
+              }}
             />
 
           </View>
@@ -135,9 +170,9 @@ const ProfileScreen = ({ navigation }) => {
       </KeyboardAvoidingView>
 
       <SelectionScreenModal
-        name="Sex"
+        name="sex"
         labelList={['Masculino', 'Feminino']}
-        isVisible={isModalVisible}
+        isVisible={isSexModalVisible}
         onToggleModal={toggleModal}
       />
     </SafeAreaView>

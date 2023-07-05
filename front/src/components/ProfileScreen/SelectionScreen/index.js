@@ -1,10 +1,11 @@
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { RadioButton } from 'react-native-paper';
 import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
+import { verticalScale } from 'styles/metrics';
 
 const SelectionScreen = ({ route, navigation }) => {
   const { name, itemList } = route.params.params;
@@ -12,40 +13,39 @@ const SelectionScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={[styles.container, debug]}>
-        {itemList.map(([label, description], index) => (
-          // description === undefined ?
-          //   <TouchableOpacity
-          //     key={index}
-          //     style={[styles.view, debug]}
-          //     onPress={() => setChecked(label)}
-          //     activeOpacity={0.5}
-          //   >
-          //     <RadioButton
-          //       value={label}
-          //       status={ checked === label ? 'checked' : 'unchecked' }
-          //       onPress={() => setChecked(label)}
-          //       color={colors.lightBlue}
-          //     />
-          //     <View style={[styles.content, { justifyContent: 'center' }, debug]}>
-          //       <Text style={[styles.contentLabel, debug]} >{label}</Text>
-          //     </View>
-          //   </TouchableOpacity>
-          // : 
-            <View key={index} style={[styles.view, debug]}>
-              <RadioButton
-                value={label}
-                status={checked === label ? 'checked' : 'unchecked'}
+        <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={verticalScale(25)}
+      >
+        <ScrollView
+          style={{ width: '100%' }}
+          contentContainerStyle={[{ justifyContent: 'center' }, debug]}
+          decelerationRate={0.9}
+        >
+          <View style={[styles.container, debug]}>
+            {itemList.map(([label, description], index) => (
+              <TouchableOpacity
+                key={index}
+                style={[styles.view, debug]}
                 onPress={() => setChecked(label)}
-                color={colors.lightBlue}
-              />
-              <View style={[styles.content, debug]}>
-                <Text style={[styles.contentLabel, debug]}>{label}</Text>
-                <Text style={[styles.contentDescription, debug]}>{description}</Text>
-              </View>
-            </View>
-        ))}
-      </View>
+                activeOpacity={0.5}
+              >
+                <RadioButton
+                  value={label}
+                  status={checked === label ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked(label)}
+                  color={colors.lightBlue}
+                />
+                <View style={[styles.content, debug]}>
+                  <Text style={[styles.contentLabel, debug]}>{label}</Text>
+                  <Text style={[styles.contentDescription, debug]}>{description}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
