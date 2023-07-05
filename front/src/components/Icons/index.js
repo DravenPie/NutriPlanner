@@ -94,6 +94,28 @@ const ChevronRightIcon = ({ size, color }) => (
   />
 );
 
+const SearchIcon = ({ size, color }) => (
+  <Icon
+    name="search"
+    type="feather"
+    size={size}
+    color={color}
+    iconStyle={[styles.iconStyle, debug]}
+  />
+);
+
+const XIcon = ({ size, color, containerStyle, ...props }) => (
+  <Icon
+    name="x"
+    type="feather"
+    size={size}
+    color={color}
+    containerStyle={containerStyle}
+    iconStyle={[styles.iconStyle, debug]}
+    {...props}
+  />
+);
+
 export { 
   EnvelopeIcon,
   LockIcon,
@@ -103,5 +125,7 @@ export {
   ClipboardIcon,
   PieChartIcon,
   CalendarIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  SearchIcon,
+  XIcon
 };
