@@ -42,9 +42,9 @@ const schema = yup.object({
 const ProfileScreen = ({ navigation }) => {
   const { control, handleSubmit, formState: { errors }, reset, getValues } = useForm({
     defaultValues: {
-      height: 0,
-      weight: 0,
-      age: 0,
+      height: undefined,
+      weight: undefined,
+      age: undefined,
       sex: 'Masculino',
       activityLevel: 'Baixo',
       goal: 'Perder peso',
@@ -117,7 +117,7 @@ const ProfileScreen = ({ navigation }) => {
                 render={({ field: { onChange, value } }) => (
                   <TextInput
                     placeholder="Altura (cm)"
-                    value={value}
+                    value={value && String(value)}
                     onChangeText={onChange}
                     maxLength={3}
                     style={errors.height && { borderColor: colors.red }}
@@ -131,7 +131,7 @@ const ProfileScreen = ({ navigation }) => {
                 render={({ field: { onChange, value } }) => (
                   <TextInput
                     placeholder="Peso (kg)"
-                    value={value}
+                    value={value && String(value)}
                     onChangeText={(data) => { handleWeightChange(data, onChange) }}
                     style={errors.weight && { borderColor: colors.red }}
                   />
@@ -144,7 +144,7 @@ const ProfileScreen = ({ navigation }) => {
                 render={({ field: { onChange, value } }) => (
                   <TextInput
                     placeholder="Idade"
-                    value={value}
+                    value={value && String(value)}
                     onChangeText={onChange}
                     maxLength={3}
                     style={errors.age && { borderColor: colors.red }}
@@ -256,28 +256,28 @@ const ProfileScreen = ({ navigation }) => {
 
               <TextInput
                 placeholder="Taxa Metabólica Basal"
-                value={getValues().bmr}
+                value={getValues().bmr && String(getValues().bmr)}
                 editable={false}
                 style={{backgroundColor: colors.darkWhite}}
               />
 
               <TextInput
                 placeholder="Índice de Massa Corporal"
-                value={getValues().bmi}
+                value={getValues().bmi && String(getValues().bmi)}
                 editable={false}
                 style={{backgroundColor: colors.darkWhite}}
               />
 
               <TextInput
                 placeholder="Requisitos de Água (ml)"
-                value={getValues().waterRequirements}
+                value={getValues().waterRequirements && String(getValues().waterRequirements)}
                 editable={false}
                 style={{backgroundColor: colors.darkWhite}}
               />
 
               <TextInput
                 placeholder="Requisitos Calóricos (kcal)"
-                value={getValues().caloricRequirements}
+                value={getValues().caloricRequirements && String(getValues().caloricRequirements)}
                 editable={false}
                 style={{backgroundColor: colors.darkWhite}}
               />

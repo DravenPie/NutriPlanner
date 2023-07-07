@@ -12,7 +12,7 @@ const SelectionScreen = ({ route, navigation }) => {
   const [checked, setChecked] = useState(value);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
         <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}

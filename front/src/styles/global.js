@@ -25,7 +25,7 @@ const defaultContainer = () => {
     ...padding(20),
 
     flex: 1,
-    marginTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight,
   }
 }
 

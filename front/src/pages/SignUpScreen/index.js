@@ -34,12 +34,14 @@ const schema = yup.object({
 });
 
 const SignUpScreen = ({ navigation }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema)
   })
 
   const handleSignIn = async (data) => {  // realizar cadastro
+    console.log(data);
     navigation.navigate('LoginScreen');
+    reset();
   };
 
   const [secureText, setSecureText] = useState(true);

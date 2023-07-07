@@ -27,14 +27,14 @@ const FoodDisplay = ({ food, onSubmit }) => {
           numberOfLines={1} 
           ellipsizeMode="tail"
           style={[styles.text, debug]}
-        >{food.quantity}g</Text>
+        >{food.quantity && String(food.quantity)}g</Text>
       </View>
       <View style={[styles.propertiesContainer,  debug]}>
         <Text
           numberOfLines={1} 
           ellipsizeMode="tail"
           style={[styles.text,  debug]}
-        >{food.kcal} Kcal  C: {food.carb}  P: {food.prot}  G: {food.fat}</Text>
+        >{food.kcal && String(food.kcal)} Kcal  C: {food.carb && String(food.carb)}  P: {food.prot && String(food.prot)}  G: {food.fat && String(food.fat)}</Text>
       </View>
 
       <FoodDisplayModal

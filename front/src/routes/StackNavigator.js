@@ -1,7 +1,9 @@
 import Header from '@components/General/Header'
 import LoginScreen from '@pages/LoginScreen';
+import { SafeAreaView } from 'react-native';
 import SelectionScreen from '@components/ProfileScreen/SelectionScreen';
 import SignUpScreen from '@pages/SignUpScreen';
+import { Header as StackHeader } from '@react-navigation/elements';
 import TopbarNavigator from './TopBarNavigator';
 import { colors } from '@styles/colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

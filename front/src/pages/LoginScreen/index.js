@@ -14,22 +14,24 @@ import { verticalScale } from '@styles/metrics';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = yup.object({
-  email: yup.string()
-    .email('E-mail inválido')
-    .required('Campo obrigatório'),
+  // email: yup.string()
+  //   .email('E-mail inválido')
+  //   .required('Campo obrigatório'),
 
-  password: yup.string()
-    .min(6, 'A senha deve ter pelo menos 6 caracteres')
-    .required('Campo obrigatório')
+  // password: yup.string()
+  //   .min(6, 'A senha deve ter pelo menos 6 caracteres')
+  //   .required('Campo obrigatório')
 });
 
 const LoginScreen = ({ navigation }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
 
   const handleSignIn = async (data) => {  // realizar autenticação
+    console.log(data);
     navigation.navigate('Home');
+    reset();
   };
 
   const [secureText, setSecureText] = useState(true);

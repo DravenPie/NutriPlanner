@@ -1,5 +1,4 @@
-import { defaultContainer, padding } from '@styles/global';
-import { horizontalScale, moderateScale, verticalScale } from '@styles/metrics';
+import { moderateScale, verticalScale } from '@styles/metrics';
 
 import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
@@ -12,7 +11,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '90%',
-    backgroundColor: colors.white,
+    backgroundColor: colors.darkWhite,
     borderRadius: moderateScale(20),
     marginBottom: verticalScale(20),
   },

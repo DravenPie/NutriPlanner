@@ -25,7 +25,7 @@ const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit
     defaultValues: isRegister ?
       {
         id: undefined, name: undefined, kcal: undefined,
-        quantity: 0, carb: undefined, prot: undefined, fat: undefined
+        quantity: undefined, carb: undefined, prot: undefined, fat: undefined
       }
       : food,
     resolver: yupResolver(schema),
