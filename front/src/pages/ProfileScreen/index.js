@@ -1,32 +1,96 @@
-import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import * as yup from 'yup';
 
-import { SelectionScreenModal } from 'components/ProfileScreen/SelectionScreenModal';
+import { Controller, useForm } from 'react-hook-form';
+import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+
+import Button from 'components/ProfileScreen/Button';
+import { LogBox } from 'react-native';
+import SelectionScreenModal from '@components/ProfileScreen/SelectionScreenModal';
 import TextInput from '@components/ProfileScreen/TextInput'
 import TextSelection from '@components/ProfileScreen/TextSelection';
 import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
-import { useState } from 'react';
 import { verticalScale } from '@styles/metrics';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
+
+const bd = {
+  height: 178,
+  weight: 70,
+  age: 21,
+  sex: 'Masculino',
+  activityLevel: 'Baixo',
+  goal: 'Perder peso',
+  dietType: 'Padrão',
+  bmr: 100,
+  bmi: 200,
+  waterRequirements: 300,
+  caloricRequirements: 400,
+};
+
+const schema = yup.object({
+  height: yup.number().positive().required(),
+  weight: yup.number().positive().required(),
+  age: yup.number().positive().required(),
+});
 
 const ProfileScreen = ({ navigation }) => {
-  const [userHeight, setUserHeight] = useState('');  // vai dar get na api
-  const [userWeight, setUserWeight] = useState('');  // vai dar get na api
-  const [userAge, setUserAge] = useState('');  // vai dar get na api
-  const [userSex, setUserSex] = useState('');  // vai dar get na api
-  const [userActivityLevel, setUserActivityLevel] = useState('');  // vai dar get na api
-  const [userGoal, setUserGoal] = useState('');  // vai dar get na api
-  const [userDietType, setUserDietType] = useState('');  // vai dar get na api
-  const [isSexModalVisible, setSexModalVisible] = useState(false);
+  const { control, handleSubmit, formState: { errors }, reset, getValues } = useForm({
+    defaultValues: {
+      height: 0,
+      weight: 0,
+      age: 0,
+      sex: 'Masculino',
+      activityLevel: 'Baixo',
+      goal: 'Perder peso',
+      dietType: 'Padrão',
+    },
+    resolver: yupResolver(schema),
+  });
 
-  const handleWeightChange = (text) => {
-    // Expressão regular para validar o formato (###.##)
-    const regex = /^\d{0,3}(\.\d{0,2})?$/;
-    
-    // Verifica se o valor corresponde à expressão regular
-    if (regex.test(text)) setUserWeight(text);
+  useEffect(() => {    // inicializa os dados
+    //   const fetchData = async () => {
+    //     try {
+    //       const response = await axios.post('URL_DO_SERVIDOR', token);
+    //       const data = response.data;
+    //       setUserData(data.userData);
+    //     } catch (error) {
+    //       console.error('Erro ao fazer a solicitação ProfileScreen:', error);
+    //     }
+    //   };
+
+    //   fetchData();
+
+    reset({});
+  }, []);
+
+  const handlePostSubmit = async (data) => {    // upa os dados, recebe eles atualizados, faz o set
+    // try {
+    //   const response = await axios.post('URL_DO_SERVIDOR', userData);
+    //   const data = response.data;
+    //   setUserData(data.userData);
+    // } catch (error) {
+    //   console.error('Erro ao fazer a solicitação ProfileScreen:', error);
+    // }
+
+    console.log(data);
+    reset(data);
   };
 
+  const handleWeightChange = (value, set) => {
+    // Expressão regular para validar o formato (###.##)
+    const regex = /^\d{0,3}(\.\d{0,2})?$/;
+
+    // Verifica se o valor corresponde à expressão regular
+    if (regex.test(value)) set(value);
+  };
+
+  const [isSexModalVisible, setSexModalVisible] = useState(false);
   const toggleModal = () => {
     setSexModalVisible(!isSexModalVisible);
   };
@@ -43,138 +107,186 @@ const ProfileScreen = ({ navigation }) => {
           contentContainerStyle={[{ justifyContent: 'center' }, debug]}
           decelerationRate={0.9}
         >
-          <View style={[styles.view, debug]}>
-            <Text style={[styles.viewHeader, debug]}>Perfil</Text>
+          <View style={{ width: '100%', alignItems: 'center' }}>
+            <View style={[styles.view, debug]}>
+              <Text style={[styles.viewHeader, debug]}>Perfil</Text>
 
-            <TextInput
-              placeholder="Altura (cm)"
-              value={userHeight}
-              onChangeText={setUserHeight}
-              maxLength={3}
-              // onPressOut={}
-            />
+              <Controller
+                control={control}
+                name="height"
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    placeholder="Altura (cm)"
+                    value={value}
+                    onChangeText={onChange}
+                    maxLength={3}
+                    style={errors.height && { borderColor: colors.red }}
+                  />
+                )}
+              />
 
-            <TextInput
-              placeholder="Peso (kg)"
-              value={userWeight}
-              onChangeText={handleWeightChange}
-              // onPressOut={}
-            />
+              <Controller
+                control={control}
+                name="weight"
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    placeholder="Peso (kg)"
+                    value={value}
+                    onChangeText={(data) => { handleWeightChange(data, onChange) }}
+                    style={errors.weight && { borderColor: colors.red }}
+                  />
+                )}
+              />
 
-            <TextInput
-              placeholder="Idade"
-              value={userAge}
-              onChangeText={setUserAge}
-              maxLength={3}
-              // onPressOut={}
-            />
+              <Controller
+                control={control}
+                name="age"
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    placeholder="Idade"
+                    value={value}
+                    onChangeText={onChange}
+                    maxLength={3}
+                    style={errors.age && { borderColor: colors.red }}
+                  />
+                )}
+              />
 
-            <TextSelection
-              placeholder="Sexo"
-              value={userSex}
-              onPress={() => { toggleModal() }}
-            />
+              <TextSelection
+                placeholder="Sexo"
+                value={getValues().sex}
+                onPress={() => { toggleModal() }}
+              />
 
-            <TextSelection
-              placeholder="Nível de atividade"
-              value={userActivityLevel}
-              onPress={() => {
-                navigation.navigate('ActivityLevelScreen', {
-                  params: { 
-                    name: 'activityLevel',
-                    itemList: [
-                      ['Baixo', 'Pouquíssimo exercício ou nenhum'],
-                      ['Moderado', 'Pouco exercício, 1 a 3 vezes por semana'],
-                      ['Alto', 'Exercício moderado, 3 a 5 vezes por semana'],
-                      ['Muito alto', 'Exercício intenso, 6 a 7 vezes por semana'],
-                      ['Hiperativo', 'Exercício muito intenso, atividade física, 2 horas ou mais']
-                    ],
-                  },
-                });
-              }}
-            />
+              <Controller
+                control={control}
+                name="sex"
+                render={({ field: { onChange, value } }) => (
+                  <SelectionScreenModal
+                    labelList={['Masculino', 'Feminino']}
+                    isVisible={isSexModalVisible}
+                    onToggleModal={toggleModal}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+              />
 
-            <TextSelection
-              placeholder="Objetivo"
-              value={userGoal}
-              onPress={() => {
-                navigation.navigate('GoalScreen', {
-                  params: { 
-                    name: 'goal',
-                    itemList: [
-                      ['Perder peso', 'Diminuir os requisitos calóricos em 20%'],
-                      ['Perder peso lentamente', 'Diminuir os requisitos calóricos em 10%'],
-                      ['Manter peso', 'Não alterar os requisitos calóricos'],
-                      ['Aumentar o peso lentamente', 'Aumentar os requisitos calóricos em 10%'],
-                      ['Aumentar o peso', 'Aumentar os requisitos calóricos em 20%']
-                    ],
-                  },
-                });
-              }}
-            />
+              <Controller
+                control={control}
+                name="activityLevel"
+                render={({ field: { onChange, value } }) => (
+                  <TextSelection
+                    placeholder="Nível de atividade"
+                    value={value}
+                    onPress={() => {
+                      navigation.navigate('ActivityLevelScreen', {
+                        params: {
+                          itemList: [
+                            ['Baixo', 'Pouquíssimo exercício ou nenhum'],
+                            ['Moderado', 'Pouco exercício, 1 a 3 vezes por semana'],
+                            ['Alto', 'Exercício moderado, 3 a 5 vezes por semana'],
+                            ['Muito alto', 'Exercício intenso, 6 a 7 vezes por semana'],
+                            ['Hiperativo', 'Exercício muito intenso, atividade física, 2 horas ou mais']
+                          ],
+                          value: value,
+                          onChange: onChange,
+                        },
+                      });
+                    }}
+                  />
+                )}
+              />
 
-            <TextSelection
-              placeholder="Tipo de dieta"
-              value={userDietType}
-              onPress={() => {
-                navigation.navigate('DietTypeScreen', {
-                  params: { 
-                    name: 'dietType',
-                    itemList: [
-                      ['Padrão', '50% Carboidratos, 20% Proteínas, 30% Gorduras'],
-                      ['Equilibrado', '50% Carboidratos, 25% Proteínas, 25% Gorduras'],
-                      ['Pobre em gorduras', '60% Carboidratos, 25% Proteínas, 15% Gorduras'],
-                      ['Rico em proteínas', '25% Carboidratos, 40% Proteínas, 35% Gorduras'],
-                      ['Cetogénica', '5% Carboidratos, 30% Proteínas, 65% Gorduras']
-                    ],
-                  },
-                });
-              }}
-            />
+              <Controller
+                control={control}
+                name="goal"
+                render={({ field: { onChange, value } }) => (
+                  <TextSelection
+                    placeholder="Objetivo"
+                    value={value}
+                    onPress={() => {
+                      navigation.navigate('GoalScreen', {
+                        params: {
+                          itemList: [
+                            ['Perder peso', 'Diminuir os requisitos calóricos em 20%'],
+                            ['Perder peso lentamente', 'Diminuir os requisitos calóricos em 10%'],
+                            ['Manter peso', 'Não alterar os requisitos calóricos'],
+                            ['Aumentar o peso lentamente', 'Aumentar os requisitos calóricos em 10%'],
+                            ['Aumentar o peso', 'Aumentar os requisitos calóricos em 20%']
+                          ],
+                          value: value,
+                          onChange: onChange,
+                        },
+                      });
+                    }}
+                  />
+                )}
+              />
 
-          </View>
+              <Controller
+                control={control}
+                name="dietType"
+                render={({ field: { onChange, value } }) => (
+                  <TextSelection
+                    placeholder="Tipo de dieta"
+                    value={value}
+                    onPress={() => {
+                      navigation.navigate('DietTypeScreen', {
+                        params: {
+                          itemList: [
+                            ['Padrão', '50% Carboidratos, 20% Proteínas, 30% Gorduras'],
+                            ['Equilibrado', '50% Carboidratos, 25% Proteínas, 25% Gorduras'],
+                            ['Pobre em gorduras', '60% Carboidratos, 25% Proteínas, 15% Gorduras'],
+                            ['Rico em proteínas', '25% Carboidratos, 40% Proteínas, 35% Gorduras'],
+                            ['Cetogénica', '5% Carboidratos, 30% Proteínas, 65% Gorduras']
+                          ],
+                          value: value,
+                          onChange: onChange,
+                        },
+                      });
+                    }}
+                  />
+                )}
+              />
+            </View>
 
-          <View style={[styles.view, debug]}>
-            <Text style={[styles.viewHeader, debug]}>Resultados</Text>
+            <View style={[styles.view, debug]}>
+              <Text style={[styles.viewHeader, debug]}>Resultados</Text>
 
-            <TextInput
-              placeholder="Taxa Metabólica Basal"
-              value={''}  // vai dar get na api
-              editable={false}
-              displayColor={colors.darkWhite}
-            />
+              <TextInput
+                placeholder="Taxa Metabólica Basal"
+                value={getValues().bmr}
+                editable={false}
+                style={{backgroundColor: colors.darkWhite}}
+              />
 
-            <TextInput
-              placeholder="Índice de Massa Corporal"
-              value={''}  // vai dar get na api
-              editable={false}
-              displayColor={colors.darkWhite}
-            />
+              <TextInput
+                placeholder="Índice de Massa Corporal"
+                value={getValues().bmi}
+                editable={false}
+                style={{backgroundColor: colors.darkWhite}}
+              />
 
-            <TextInput
-              placeholder="Requisitos de Água (ml)"
-              value={''}  // vai dar get na api
-              editable={false}
-              displayColor={colors.darkWhite}
-            />
+              <TextInput
+                placeholder="Requisitos de Água (ml)"
+                value={getValues().waterRequirements}
+                editable={false}
+                style={{backgroundColor: colors.darkWhite}}
+              />
 
-            <TextInput
-              placeholder="Requisitos Calóricos (kcal)"
-              value={''}  // vai dar get na api
-              editable={false}
-              displayColor={colors.darkWhite}
-            />
+              <TextInput
+                placeholder="Requisitos Calóricos (kcal)"
+                value={getValues().caloricRequirements}
+                editable={false}
+                style={{backgroundColor: colors.darkWhite}}
+              />
+            </View>
 
+            <Button title="SALVAR" onPress={handleSubmit(handlePostSubmit)} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <SelectionScreenModal
-        name="sex"
-        labelList={['Masculino', 'Feminino']}
-        isVisible={isSexModalVisible}
-        onToggleModal={toggleModal}
-      />
     </SafeAreaView>
   )
 }

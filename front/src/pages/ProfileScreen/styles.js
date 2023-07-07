@@ -10,9 +10,11 @@ const styles = StyleSheet.create({
     marginTop: 0,
     
     backgroundColor: colors.lightGreen,
+    alignItems: 'center'
   },
 
   view: {
+    width: '100%',
     ...padding(0, 0, 20, 0),
   },
   viewHeader: {

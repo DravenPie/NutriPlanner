@@ -10,6 +10,7 @@ const colors = {
     darkWhite: '#eeeeee',
     lightBlue: '#9FD7FF',
     mediumBlue: '#26A4FF',
+    lightWhite: '#ffffffb3',
 }
 
 export { colors };

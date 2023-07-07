@@ -4,12 +4,12 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 
-const TextInput = ({ placeholder, displayColor, ...props }) => {
+const TextInput = ({ placeholder, style, ...props }) => {
   return (
     <View style={[styles.container, debug]}>
       <Text style={[styles.placeholder, debug]}>{placeholder}</Text>
       <Input
-        style={[styles.input, {backgroundColor: displayColor}, debug]}
+        style={[styles.input, style, debug]}
         keyboardType="number-pad"
         cursorColor={colors.darkGrey}
         {...props}

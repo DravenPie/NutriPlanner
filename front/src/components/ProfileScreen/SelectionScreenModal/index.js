@@ -7,8 +7,8 @@ import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
 
-const SelectionScreenModal = ({ name, labelList, isVisible, onToggleModal }) => {
-  const [checked, setChecked] = useState(labelList[0]);
+const SelectionScreenModal = ({ labelList, isVisible, onToggleModal, value, onChange }) => {
+  const [checked, setChecked] = useState(value);
   const bottomBorder = (index) => (
     (index !== labelList.length - 1) ?
       { borderBottomWidth: 1, borderBottomColor: colors.darkGrey } : {}
@@ -22,25 +22,25 @@ const SelectionScreenModal = ({ name, labelList, isVisible, onToggleModal }) => 
       transparent={true}
     >
       <View style={[styles.container, debug]}>
-        {labelList.map((label, index) => (
-          <TouchableOpacity
+        {labelList.map((label, index) => {
+          return <TouchableOpacity
             key={index}
             style={[styles.view, bottomBorder(index), debug]}
-            onPress={() => setChecked(label)}
+            onPress={() => { onChange(label); setChecked(label); }}
             activeOpacity={0.5}
           >
             <RadioButton
               value={label}
-              status={ checked === label ? 'checked' : 'unchecked'}
-              onPress={() => setChecked(label)}
+              status={ checked == label ? 'checked' : 'unchecked' }
+              onPress={() => { onChange(label); setChecked(label); }}
               color={colors.lightBlue}
             />
             <Text style={[styles.contentLabel, debug]} >{label}</Text>
           </TouchableOpacity>
-        ))}
+        })}
       </View>
     </Modal>
   );
 }
 
-export { SelectionScreenModal };
+export default SelectionScreenModal;

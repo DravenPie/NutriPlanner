@@ -1,32 +1,43 @@
+import * as yup from 'yup';
+
+import { Controller, useForm } from 'react-hook-form';
 import { Text, TextInput, View } from 'react-native';
 
-import Button from 'components/Button';
+import Button from '@components/General/Button';
 import Modal from 'react-native-modal';
-import { XIcon } from 'components/Icons';
+import { XIcon } from '@components/General/Icons';
 import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
-import { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-const FoodDisplayModal = ({ name, kcal, quantity, carb, prot, fat, isVisible, onToggleModal }) => {
-  const [updatedKcal, setUpdatedKcal] = useState('');
-  const [updatedQuantity, setUpdatedQuantity] = useState('');
-  const [updatedCarb, setUpdatedCarb] = useState('');
-  const [updatedProt, setUpdatedProt] = useState('');
-  const [updatedFat, setUpdatedFat] = useState('');
+const schema = yup.object({
+  name: yup.string().required(),
+  kcal: yup.number().positive().required(),
+  quantity: yup.number().positive().required(),
+  carb: yup.number().positive().required(),
+  prot: yup.number().positive().required(),
+  fat: yup.number().positive().required(),
+});
+
+const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit }) => {
+  const { control, handleSubmit, formState: { errors }, reset, getValues } = useForm({
+    defaultValues: isRegister ?
+      {
+        id: undefined, name: undefined, kcal: undefined,
+        quantity: 0, carb: undefined, prot: undefined, fat: undefined
+      }
+      : food,
+    resolver: yupResolver(schema),
+  });
 
   const itemList = [
-    ['Calorias (Kcal)', kcal, updatedKcal, setUpdatedKcal],
-    ['Quantidade', quantity, updatedQuantity, setUpdatedQuantity],
-    ['Carboidratos (g)', carb, updatedCarb, setUpdatedCarb],
-    ['Proteínas (g)', prot, updatedProt, setUpdatedProt],
-    ['Gorduras (g)', fat, updatedFat, setUpdatedFat]
+    ['Calorias (Kcal)', 'kcal'],
+    ['Quantidade (g)', 'quantity'],
+    ['Carboidratos (g)', 'carb'],
+    ['Proteínas (g)', 'prot'],
+    ['Gorduras (g)', 'fat']
   ];
-
-  const bottomBorder = (index) => (
-    (index !== labelList.length - 1) ?
-      { borderBottomWidth: 1, borderBottomColor: colors.darkGrey } : {}
-  )
 
   return (
     <Modal
@@ -43,9 +54,28 @@ const FoodDisplayModal = ({ name, kcal, quantity, carb, prot, fat, isVisible, on
             color={colors.white}
             onPress={onToggleModal}
           />
-          <Text style={[styles.headerText, debug]}>{name === undefined ? 'Alimento' : name}</Text>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={[
+                    styles.headerText,
+                    debug
+                  ]}
+                  placeholder="Alimento"
+                  placeholderTextColor={colors.lightWhite}
+                  cursorColor={colors.white}
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  keyboardType='default'
+                  editable={isRegister}
+                />
+              )}
+            />
         </View>
-        {itemList.map(([label, placeholder, value, setValue], index) => (
+        {itemList.map(([label, name], index) => (
           <View
             key={index}
             style={[styles.foodDisplay, debug]}
@@ -53,24 +83,55 @@ const FoodDisplayModal = ({ name, kcal, quantity, carb, prot, fat, isVisible, on
             <Text style={[styles.foodDisplayText, debug]}>
               {label}
             </Text>
-            <TextInput
-              style={[styles.foodDisplayInput, debug]}
-              placeholder={placeholder === undefined ? 'Obrigatório' : placeholder}
-              placeholderTextColor={colors.lightGrey}
-              cursorColor={colors.darkGrey}
-              textAlign='center'
-              value={value}
-              onChangeText={setValue}
-              keyboardType='number-pad'
+            <Controller
+              control={control}
+              name={name}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={[
+                    styles.foodDisplayInput,
+                    isRegister ? { color: colors.black } : { color: colors.lightGrey },
+                    errors[name] && { borderColor: colors.red },
+                    debug
+                  ]}
+                  placeholder={isRegister ? 'Obrigatório' : undefined}
+                  placeholderTextColor={colors.lightGrey}
+                  cursorColor={colors.darkGrey}
+                  textAlign='center'
+                  value={value && String(value)}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  keyboardType='number-pad'
+                  editable={isRegister}
+                />
+              )}
             />
           </View>
         ))}
-        <Button
-          title={'SALVAR'}
-          onPress={() => {
-            onToggleModal()
-          }}
-        />
+
+        {isRegister ?
+          <Button
+            title={'SALVAR'}
+            onPress={(data) => {
+              onToggleModal();
+              return handleSubmit((data) => {
+                onSubmit(data);
+                reset();
+              })(data);
+            }}
+          />
+          :
+          <Button
+            textStyle={{ color: colors.red }}
+            title={'EXCLUIR'}
+            onPress={() => {
+              onToggleModal();
+              onSubmit(food);
+            }}
+          />
+        }
+
+
       </View>
     </Modal>
   );

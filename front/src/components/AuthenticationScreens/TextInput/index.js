@@ -3,35 +3,18 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 
-const TextInput = ({
-  leftIcon,
-  leftIconContainerStyle,
-  rightIcon,
-  rightIconContainerStyle,
-  placeholder,
-  value,
-  onChangeText,
-  secureTextEntry,
-  keyboardType
-}) => {
+const TextInput = ({ inputContainerStyle, ...props }) => {
   return (
     <Input
       containerStyle={debug}
-      inputContainerStyle={[styles.inputContainer, debug]}
+      inputContainerStyle={[styles.inputContainer, inputContainerStyle, debug]}
       inputStyle={[styles.input, debug]}
-
-      leftIcon={leftIcon}
-      leftIconContainerStyle={leftIconContainerStyle}
-      rightIcon={rightIcon}
-      rightIconContainerStyle={rightIconContainerStyle}
-
-      placeholder={placeholder}
       placeholderTextColor={colors.lightGrey}
+      leftIconContainerStyle={[styles.inputIcon, debug]}
+      rightIconContainerStyle={[styles.inputIcon, debug]}
+      errorStyle={[styles.errorMessage, debug]}
 
-      value={value}
-      onChangeText={onChangeText}
-      secureTextEntry={secureTextEntry}
-      keyboardType={keyboardType}
+      {...props}
     />
   );
 }

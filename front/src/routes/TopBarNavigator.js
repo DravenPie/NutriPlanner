@@ -1,8 +1,6 @@
-import { BookIcon, CalendarIcon, ClipboardIcon, PieChartIcon, UserIcon } from '@components/Icons';
+import { BookIcon, ClipboardIcon, PieChartIcon, UserIcon } from '@components/General/Icons';
 
 import DailyProgressScreen from '@pages/DailyProgressScreen';
-import DailyRequirementsScreen from '@pages/DailyRequirementsScreen';
-import HistoryScreen from '@pages/HistoryScreen';
 import LibraryScreen from '@pages/LibraryScreen';
 import ProfileScreen from '@pages/ProfileScreen';
 import { View } from 'react-native';
@@ -21,7 +19,6 @@ const TopBarNavigator = () => {
         tabBarInactiveTintColor: colors.white,
         tabBarIndicatorStyle: { backgroundColor: colors.darkGreen, height: verticalScale(5) },
       }}
-      // tabBar={() => <View style={{ display: 'none' }}/>}
     >
       <Tab.Screen
         name='ProfileScreen'
@@ -41,26 +38,10 @@ const TopBarNavigator = () => {
         }}
       />
       <Tab.Screen
-        name='DailyRequirementsScreen'
-        component={DailyRequirementsScreen}
-        options={{
-          tabBarIcon: ({ size, color }) => <ClipboardIcon size={size} color={color} />,
-          tabBarLabel: () => <View style={{ display: 'none' }} />
-        }}
-      />
-      <Tab.Screen
         name='DailyProgressScreen'
         component={DailyProgressScreen}
         options={{
           tabBarIcon: ({ size, color }) => <PieChartIcon size={size} color={color} />,
-          tabBarLabel: () => <View style={{ display: 'none' }} />
-        }}
-      />
-      <Tab.Screen
-        name='HistoryScreen'
-        component={HistoryScreen}
-        options={{
-          tabBarIcon: ({ size, color }) => <CalendarIcon size={size} color={color} />,
           tabBarLabel: () => <View style={{ display: 'none' }} />
         }}
       />

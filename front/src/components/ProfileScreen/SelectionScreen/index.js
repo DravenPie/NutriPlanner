@@ -5,11 +5,11 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
-import { verticalScale } from 'styles/metrics';
+import { verticalScale } from '@styles/metrics';
 
 const SelectionScreen = ({ route, navigation }) => {
-  const { name, itemList } = route.params.params;
-  const [checked, setChecked] = useState(itemList[0][0]);
+  const { itemList, value, onChange } = route.params.params;
+  const [checked, setChecked] = useState(value);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -28,13 +28,13 @@ const SelectionScreen = ({ route, navigation }) => {
               <TouchableOpacity
                 key={index}
                 style={[styles.view, debug]}
-                onPress={() => setChecked(label)}
+                onPress={() => { onChange(label); setChecked(label); }}
                 activeOpacity={0.5}
               >
                 <RadioButton
                   value={label}
                   status={checked === label ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked(label)}
+                  onPress={() => { onChange(label); setChecked(label); }}
                   color={colors.lightBlue}
                 />
                 <View style={[styles.content, debug]}>

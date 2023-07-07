@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGreen,
   },
   header: {
-    height: verticalScale(40),
+    height: verticalScale(70),
   },
   headerText: {
     fontSize: moderateScale(25),
@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
   },
 
   formView: {
-    ...padding(40, 0),
+    ...padding(0, 0, 40, 0),
 
-    height: verticalScale(580),    
+    height: verticalScale(550),    
     alignItems: 'center',
     justifyContent: 'space-between',
   },

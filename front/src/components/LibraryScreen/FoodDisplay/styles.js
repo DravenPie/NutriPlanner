@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   propertiesContainer: {
     width: '70%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
 });
 

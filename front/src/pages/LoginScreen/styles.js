@@ -26,12 +26,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  inputIcon: {
-    width: '10%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...padding(0),
-  },
 
   footer: {
     height: verticalScale(195),

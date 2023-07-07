@@ -3,114 +3,88 @@ import { debug } from '@styles/global';
 import { moderateScale } from '@styles/metrics';
 import styles from './styles';
 
-const EnvelopeIcon = ({ size, color }) => (
+const EnvelopeIcon = ({ size, ...props }) => (
   <Icon
     name="envelope"
     type="font-awesome"
     size={moderateScale(size)}
-    color={color}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const LockIcon = ({ size, color }) => (
+const LockIcon = ({ size, ...props }) => (
   <Icon
     name="lock"
     type="font-awesome"
     size={moderateScale(size)}
-    color={color}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const EyeIcon = ({ active, size, color, onPress }) => (
+const EyeIcon = ({ active, size, ...props }) => (
   <Icon
     name={ active ? "eye" : "eye-slash" }
     type="font-awesome"
     size={moderateScale(size)}
-    color={color}
     iconStyle={[styles.iconStyle, debug]}
-    onPress={onPress}
+    {...props}
   />
 );
 
-const UserIcon = ({ size, color }) => (
+const UserIcon = ({ size, ...props }) => (
   <Icon
     name="user"
     type="feather"
-    size={size}
-    color={color}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const BookIcon = ({ size, color }) => (
+const BookIcon = ({ size, ...props }) => (
   <Icon
     name="book"
     type="feather"
-    size={size}
-    color={color}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const ClipboardIcon = ({ size, color }) => (
-  <Icon
-    name="clipboard"
-    type="feather"
-    size={size}
-    color={color}
-    iconStyle={[styles.iconStyle, debug]}
-  />
-);
-
-const PieChartIcon = ({ size, color }) => (
+const PieChartIcon = ({ size, ...props }) => (
   <Icon
     name="pie-chart"
     type="feather"
-    size={size}
-    color={color}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const CalendarIcon = ({ size, color }) => (
-  <Icon
-    name="calendar"
-    type="feather"
-    size={size}
-    color={color}
-    iconStyle={[styles.iconStyle, debug]}
-  />
-);
-
-const ChevronRightIcon = ({ size, color }) => (
+const ChevronRightIcon = ({ size, ...props }) => (
   <Icon
     name="chevron-right"
     type="feather"
-    size={size}
-    color={color}
+    size={moderateScale(size)}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const SearchIcon = ({ size, color }) => (
+const SearchIcon = ({ size, ...props }) => (
   <Icon
     name="search"
     type="feather"
-    size={size}
-    color={color}
+    size={moderateScale(size)}
     iconStyle={[styles.iconStyle, debug]}
+    {...props}
   />
 );
 
-const XIcon = ({ size, color, containerStyle, ...props }) => (
+const XIcon = ({ size, ...props }) => (
   <Icon
     name="x"
     type="feather"
-    size={size}
-    color={color}
-    containerStyle={containerStyle}
+    size={moderateScale(size)}
     iconStyle={[styles.iconStyle, debug]}
     {...props}
   />
@@ -122,9 +96,7 @@ export {
   EyeIcon,
   UserIcon,
   BookIcon,
-  ClipboardIcon,
   PieChartIcon,
-  CalendarIcon,
   ChevronRightIcon,
   SearchIcon,
   XIcon

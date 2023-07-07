@@ -20,6 +20,17 @@ const styles = StyleSheet.create({
     color: colors.black,
     height: verticalScale(48)
   },
+  inputIcon: {
+    width: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...padding(0),
+  },
+  errorMessage: {
+    fontSize: moderateScale(12),
+    color: colors.red,
+    fontWeight: '500',
+  }
 });
 
 export default styles;

@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { ChevronRightIcon } from '@components/Icons';
+import { ChevronRightIcon } from '@components/General/Icons';
 import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';

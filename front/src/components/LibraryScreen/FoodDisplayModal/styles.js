@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     height: verticalScale(25),
     borderRadius: moderateScale(5),
     borderColor: colors.darkGrey,
-  }
+  },
 });
 
 export default styles;

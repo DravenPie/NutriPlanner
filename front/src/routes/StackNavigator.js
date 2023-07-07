@@ -1,4 +1,4 @@
-import Header from '@components/Header'
+import Header from '@components/General/Header'
 import LoginScreen from '@pages/LoginScreen';
 import SelectionScreen from '@components/ProfileScreen/SelectionScreen';
 import SignUpScreen from '@pages/SignUpScreen';
@@ -27,6 +27,7 @@ const StackNavigator = () => {
         name='SignUpScreen'
         component={SignUpScreen}
       />
+      
       <Stack.Screen
         name='Home'
         component={TopbarNavigator}
@@ -34,7 +35,6 @@ const StackNavigator = () => {
           header: () => <Header />,
         }}
       />
-
       <Stack.Screen
         name='ActivityLevelScreen'
         component={SelectionScreen}
