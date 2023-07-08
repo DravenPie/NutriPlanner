@@ -11,6 +11,11 @@ const colors = {
     lightBlue: '#9FD7FF',
     mediumBlue: '#26A4FF',
     lightWhite: '#ffffffb3',
+    pastelGreen: '#8DCC68',
+    pastelRed: '#CC6868',
+    powerBlue: '#3399FF',
+    powerRed: '#FF3333',
+    powerYellow: '#FFBA33',
 }
 
 export { colors };
