@@ -3,7 +3,7 @@ import { debug, padding } from '@styles/global';
 import { useEffect, useState } from 'react';
 
 import Button from '@components/General/Button';
-import ProgressCircle from 'react-native-progress-circle'
+import ProgressCircle from 'progress-circle-react-native';
 import { colors } from '@styles/colors';
 import { moderateScale } from 'styles/metrics';
 import styles from './styles';
