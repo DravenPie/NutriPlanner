@@ -1,5 +1,5 @@
 {
-  "name": "nutriplanner-front",
+  "name": "nutriplanner",
   "version": "1.0.0",
   "main": "./index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
+    "@react-native-async-storage/async-storage": "^1.19.0",
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",

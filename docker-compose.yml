@@ -1,9 +1,9 @@
 version: '3'
 services:
-  front:
-    build: ./front
+  app:
+    build: ./app
     ports:
       - "19000:19000"
       - "19006:19006"
     volumes:
-      - ./front:/usr/app/front
+      - ./app:/usr/app/app
