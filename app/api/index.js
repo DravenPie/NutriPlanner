@@ -1,174 +1,133 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import User from './models/User';
 
-import { User, Food } from './classes';
+const [userToken, foodListToken] = ['User', 'FoodList'];
 
-// Inicializa o usuário com dados fictícios na memória
-const initUserData = async () => {
-
-  const height = 200;
-  const weight = 100;
-  const age = 30;
-  const sex = 'Masculino';
-  const activityLevel = 'Baixo';
-  const goal = 'Perder peso';
-  const dietType = 'Padrão';
-
-  const userInit = new User(
-      height,
-      weight,
-      age,
-      sex,
-      activityLevel,
-      goal,
-      dietType);
-
+const initializeUserData = async () => {
   try {
-      await AsyncStorage.setItem('@User', JSON.stringify(userInit))
-  } catch (e) {
-      console.log(e);
+    const user = await getUserData();
+    if (!user) {
+      await postUserData({
+        height: undefined,
+        weight: undefined,
+        age: undefined,
+        sex: 'Masculino',
+        activityLevel: 'Baixo',
+        goal: 'Perder peso',
+        dietType: 'Padrão',
+      });
+    }
+  } catch (error) {
+    console.log('initializeUserData:', error);
   }
-}
+};
 
-// Retorna os dados armazenados do usuário, que são fornecidos na tela de Perfil
 const getUserData = async () => {
+  try {
+    const user = await AsyncStorage.getItem(userToken);
+    return user !== null ? JSON.parse(user) : undefined;
+  } catch (error) {
+    console.log('getUserData:', error);
+  }
 
-  // A chave para acessar os dados guardados do usuário é "User". Como é apenas um usuário, não tem problema
-  // Obtém os dados armazenados e os atribui à variável serializedUser
-  const serializedUser = await AsyncStorage.getItem('@User');
-
-  // Desserializa as informações obtidas e as atribui à variável deserializedUser
-  const deserializedUser = JSON.parse(serializedUser);
-
-  // Inicializa as variáves que serão retornadas pela função
-  const height = parseInt(deserializedUser.height);
-  const weight = parseInt(deserializedUser.weight);
-  const age = parseInt(deserializedUser.age);
-  const sex = deserializedUser.sex;
-  const activityLevel = deserializedUser.activityLevel;
-  const goal = deserializedUser.goal;
-  const dietType = deserializedUser.dietType;
-  const bmr = deserializedUser.bmr;
-  const bmi = deserializedUser.bmi;
-  const waterRequirements = deserializedUser.waterRequirements;
-  const caloricRequirements = deserializedUser.caloricRequirements;
-
-  // height: undefined,                // int ou undefined
-  // weight: undefined,                // int ou undefined
-  // age: undefined,                   // int ou undefined
-  // sex: 'Masculino',                 // string
-  // activityLevel: 'Baixo',           // string
-  // goal: 'Perder peso',              // string
-  // dietType: 'Padrão',               // string
-  // bmr: undefined,                   // int ou undefined
-  // bmi: undefined,                   // int ou undefined
-  // waterRequirements: undefined,     // int ou undefined
-  // caloricRequirements: undefined,   // int ou undefined
-
-  // Retorna um vetor com as info solicitadas
-  return [height,
-      weight,
-      age,
-      sex,
-      activityLevel,
-      goal,
-      dietType,
-      bmr,
-      bmi,
-      waterRequirements,
-      caloricRequirements]
-
+  return undefined;
 }
 
-// Dados os parâmetros fornecidos, atualiza os dados armazenados do usuário e retorna um vetor com os dados atualizados
-const postUserData = async (
-  height,            // int
-  weight,            // int
-  age,               // int
-  sex,               // string
-  activityLevel,     // string
-  goal,              // string
-  dietType           // string
-) => {
+const postUserData = async (data) => {
+  try {
+    const user = User(data);
+    if (user !== undefined) {
+      await AsyncStorage.setItem(userToken, JSON.stringify(user));
+    }
 
-  // Instancia um usuário para serializá-lo e armazenar em um JSON
-  const userPost = new User(
-      height,
-      weight,
-      age,
-      sex,
-      activityLevel,
-      goal,
-      dietType)
+    return user;
+  } catch (error) {
+    console.log('postUserData:', error);
+  }
 
-  // manipula os dados e devolve eles atualizados
-
-  // Converte o usuário em um JSON para que seja possível armazenar seus dados, já que AsyncStorage só trabalha com string
-  // A chave para acessar os dados guardados do usuário é "User". Como é apenas um usuário, não tem problema
-  // Sobrescreve os dados do usuário que estiverem escritos, atualizando-os
-  await AsyncStorage.mergeItem('@User', JSON.stringify(userPost));
-
-  // height: undefined,                // int
-  // weight: undefined,                // int
-  // age: undefined,                   // int
-  // sex: 'Masculino',                 // string
-  // activityLevel: 'Baixo',           // string
-  // goal: 'Perder peso',              // string
-  // dietType: 'Padrão',               // string
-  // bmr: undefined,                   // int
-  // bmi: undefined,                   // int
-  // waterRequirements: undefined,     // int
-  // caloricRequirements: undefined,   // int
-
-  // Retorna um vetor com as info atualizadas
-  return [
-      userPost.getHeight(),
-      userPost.getWeight(),
-      userPost.getAge(),
-      userPost.getSex(),
-      userPost.getActivityLevel(),
-      userPost.getGoal(),
-      userPost.getDietType(),
-      userPost.getBmr(),
-      userPost.getBmi(),
-      userPost.getWaterRequirements(),
-      userPost.getCaloricRequirements()
-  ]
+  return undefined;
 }
 
-const getFoodList = async () => {
+const initializeFoodList = async () => {
+  try {
+    const foodList = await getFoodList();
+    if (!foodList) {
+      await AsyncStorage.setItem(foodListToken, JSON.stringify([]));
+    }
+  } catch (error) {
+    console.log('initializeFoodList:', error);
+  }
+};
 
-  return [{   // exemplo de lista com 1 item, pode ser vazia
-    id: undefined,          // int
-    name: undefined,        // string
-    kcal: undefined,        // int
-    quantity: undefined,    // int
-    carb: undefined,        // int
-    prot: undefined,        // int
-    fat: undefined,         // int
-  }]
+const filterFood = (search, food) => {
+  const normalizeTerm = (term) => {
+    return term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
+  return normalizeTerm(food.name).includes(normalizeTerm(search));
 }
 
-const postFoodList = async ([{   // exemplo de lista com 1 item, pode ser vazia
-  id,          // int
-  name,        // string
-  kcal,        // int
-  quantity,    // int
-  carb,        // int
-  prot,        // int
-  fat,         // int
-}]) => {
+const getFoodList = async (search) => {
+  try {
+    const foodList = await AsyncStorage.getItem(foodListToken);
 
-  // manipula os dados e devolve eles atualizados
+    if (search !== '' && search !== undefined && foodList !== null) {
+      return JSON.parse(foodList)
+        .filter((food) => filterFood(search, food))
+        .sort((a, b) => a.name.localeCompare(b.name));
+    }
 
-  return [{   // exemplo de lista com 1 item, pode ser vazia
-    id: undefined,          // int
-    name: undefined,        // string
-    kcal: undefined,        // int
-    quantity: undefined,    // int
-    carb: undefined,        // int
-    prot: undefined,        // int
-    fat: undefined,         // int
-  }]
+    return foodList !== null
+      ? JSON.parse(foodList).sort((a, b) => a.name.localeCompare(b.name))
+      : undefined;
+  } catch (error) {
+    console.log('getFoodList:', error);
+  }
+
+  return undefined;
 }
 
-export { initUserData, getUserData, postUserData, getFoodList, postFoodList };
+const postFood = async (data) => {
+  try {
+    if (data !== undefined) {
+      const foodList = await getFoodList('');
+      data.id = (foodList.length !== 0)
+        ? foodList[foodList.length - 1].id + 1 : 1;
+
+      const newFoodList = [...foodList, data].sort((a, b) => a.name.localeCompare(b.name));
+      await AsyncStorage.setItem(foodListToken, JSON.stringify(newFoodList));
+
+      return newFoodList;
+    }
+  } catch (error) {
+    console.log('postFood:', error);
+  }
+
+  return undefined;
+}
+
+const deleteFood = async (data) => {
+  try {
+    if (data !== undefined) {
+      const foodList = await getFoodList('');
+      const newFoodList = foodList.filter(item => item.id !== data.id);
+      await AsyncStorage.setItem(foodListToken, JSON.stringify(newFoodList));
+
+      return newFoodList;
+    }
+  } catch (error) {
+    console.log('deleteFood:', error);
+  }
+
+  return undefined;
+}
+
+export { 
+  initializeUserData,
+  getUserData,
+  postUserData,
+  initializeFoodList,
+  getFoodList,
+  postFood,
+  deleteFood
+};

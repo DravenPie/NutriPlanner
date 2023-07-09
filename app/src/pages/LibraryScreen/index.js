@@ -1,30 +1,18 @@
 import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { debug, padding } from '@styles/global';
-import { useCallback, useEffect, useState } from 'react';
+import { deleteFood, getFoodList, postFood } from '../../../api';
+import { useEffect, useState } from 'react';
 
 import Button from '@components/General/Button';
 import FoodDisplay from '@components/LibraryScreen/FoodDisplay';
 import FoodDisplayModal from '@components/LibraryScreen/FoodDisplayModal';
 import SearchBar from '@components/General/SearchBar';
 import styles from './styles';
-import { useFocusEffect } from '@react-navigation/native';
 import { verticalScale } from '@styles/metrics';
-
-const bd = [
-  {
-    id: 1,
-    name: 'Água',
-    kcal: 1000,
-    quantity: 1000,
-    carb: 1000,
-    prot: 1000,
-    fat: 1000,
-  },
-];
 
 const LibraryScreen = ({ route, navigation }) => {
   const { isAddProgress, onSubmitAddProgress } = route?.params?.params
-      || {isAddProgress: false, onSubmitAddProgress: undefined}
+    || { isAddProgress: false, onSubmitAddProgress: undefined }
 
   const onSubmitProgress = (data) => {
     navigation.navigate('LibraryScreen');
@@ -36,71 +24,45 @@ const LibraryScreen = ({ route, navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [foodList, setFoodList] = useState([]);
 
-  let index = 100;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const foodList = await getFoodList(search);
+        if (foodList !== undefined) setFoodList(foodList);
+      } catch (error) {
+        console.error('init dados foodList:', error);
+      }
+    };
 
-  useEffect(() => {    // inicializa os dados
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await axios.post('URL_DO_SERVIDOR', token);
-    //       const data = response.data;
-    //       setFoodList(data.foodList);
-    //     } catch (error) {
-    //       console.error('Erro ao fazer a solicitação LibraryScreen:', error);
-    //     }
-    //   };
-
-    //   fetchData();
-
-    setFoodList(bd)
-  }, []);
+    fetchData();
+  }, [search]);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const updateSearch = (search) => {  // atualiza a lista de comidas a cada caracter
+  const updateSearch = (search) => {
     setSearch(search);
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await axios.post('URL_DO_SERVIDOR', token);
-    //       const data = response.data;
-    //       setFoodList(data.foodList);
-    //     } catch (error) {
-    //       console.error('Erro ao fazer a solicitação LibraryScreen:', error);
-    //     }
   };
 
-  const handlePostSubmit = async (food) => {    // upa os dados, recebe eles atualizados, faz o set
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await axios.post('URL_DO_SERVIDOR', token);
-    //       const data = response.data;
-    //       setFoodList([...data.foodList, food]);
-    //     } catch (error) {
-    //       console.error('Erro ao fazer a solicitação LibraryScreen:', error);
-    //     }
-
-    updateSearch('');
-    food.id = index++;
-    console.log(food);
-    setFoodList([...foodList, food]);
+  const handlePostSubmit = async (data) => {
+    try {
+      const foodList = await postFood(data);      
+      updateSearch('');
+      setFoodList(foodList);
+    } catch (error) {
+      console.error('post dados foodList:', error);
+    }
   };
 
-  const handleDeleteSubmit = async (food) => {    // upa os dados, recebe eles atualizados, faz o set
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await axios.post('URL_DO_SERVIDOR', token);
-    //       const data = response.data;
-    //       const newFoodList = foodList.filter(item => item.id !== food.id);
-    //       setFoodList(newFoodList);
-    //     } catch (error) {
-    //       console.error('Erro ao fazer a solicitação LibraryScreen:', error);
-    //     }
-
-    updateSearch('');
-    console.log(food);
-    const newFoodList = foodList.filter(item => item.id !== food.id);
-    setFoodList(newFoodList);
+  const handleDeleteSubmit = async (data) => {
+    try {
+      const foodList = await deleteFood(data);
+      updateSearch('');
+      setFoodList(foodList);
+    } catch (error) {
+      console.error('post dados foodList:', error);
+    }
   };
 
   return (
@@ -113,48 +75,48 @@ const LibraryScreen = ({ route, navigation }) => {
           containerStyle={isAddProgress && { paddingBottom: 0 }}
         />
         {isAddProgress ||
-            <Button
+          <Button
             title="ADICIONAR ALIMENTO"
             onPress={() => { toggleModal() }}
           />}
       </View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={[{ flex: 1 }, padding(20, 0)]}
-          keyboardVerticalOffset={verticalScale(90)}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={[{ flex: 1 }, padding(20, 0)]}
+        keyboardVerticalOffset={verticalScale(90)}
+      >
+        <ScrollView
+          style={{ width: '100%' }}
+          contentContainerStyle={[{ justifyContent: 'center' }, debug]}
+          decelerationRate={0.9}
         >
-          <ScrollView
-            style={{ width: '100%' }}
-            contentContainerStyle={[{ justifyContent: 'center' }, debug]}
-            decelerationRate={0.9}
-          >
-            <FoodDisplay
-              isWater={true}
-              isAddProgress={isAddProgress}
-              food={{ id: 0, name: 'Água' }}
-              editable={false}
-              onSubmit={isAddProgress && onSubmitProgress}
-            />
-            {foodList.map((food, index) => (
-              <FoodDisplay
-                key={index}
-                isAddProgress={isAddProgress}
-                food={food}
-                editable={false}
-                onSubmit={
-                  isAddProgress ? onSubmitProgress
-                    : handleDeleteSubmit
-                }
-              />
-            ))}
-          </ScrollView>
-          <FoodDisplayModal
-            isRegister={true}
-            isVisible={isModalVisible}
-            onToggleModal={toggleModal}
-            onSubmit={handlePostSubmit}
+          <FoodDisplay
+            isWater={true}
+            isAddProgress={isAddProgress}
+            food={{ id: 0, name: 'Água' }}
+            editable={false}
+            onSubmit={isAddProgress && onSubmitProgress}
           />
-        </KeyboardAvoidingView>
+          {foodList.map((food, index) => (
+            <FoodDisplay
+              key={index}
+              isAddProgress={isAddProgress}
+              food={food}
+              editable={false}
+              onSubmit={
+                isAddProgress ? onSubmitProgress
+                  : handleDeleteSubmit
+              }
+            />
+          ))}
+        </ScrollView>
+        <FoodDisplayModal
+          isRegister={true}
+          isVisible={isModalVisible}
+          onToggleModal={toggleModal}
+          onSubmit={handlePostSubmit}
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }

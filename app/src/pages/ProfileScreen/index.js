@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { debug, padding } from '@styles/global';
+import { getUserData, postUserData } from '../../../api';
 import { moderateScale, verticalScale } from '@styles/metrics';
 import { useEffect, useState } from 'react';
 
@@ -12,26 +12,13 @@ import SelectionScreenModal from '@components/ProfileScreen/SelectionScreenModal
 import TextInput from '@components/ProfileScreen/TextInput'
 import TextSelection from '@components/ProfileScreen/TextSelection';
 import { colors } from '@styles/colors';
+import { debug } from '@styles/global';
 import styles from './styles';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
-
-const bd = {
-  height: 178,
-  weight: 70,
-  age: 21,
-  sex: 'Masculino',
-  activityLevel: 'Baixo',
-  goal: 'Perder peso',
-  dietType: 'Padrão',
-  bmr: 100,
-  bmi: 200,
-  waterRequirements: 300,
-  caloricRequirements: 400,
-};
 
 const schema = yup.object({
   height: yup.number().positive().required(),
@@ -53,37 +40,30 @@ const ProfileScreen = ({ navigation }) => {
     resolver: yupResolver(schema),
   });
 
-  const [ sex, bmi, bmr, waterRequirements,
-    caloricRequirements ] = watch(['sex', 'bmi', 'bmr',
+  const [sex, basalMetabolicRate, bodyMassIndex, waterRequirements,
+    caloricRequirements] = watch(['sex', 'basalMetabolicRate', 'bodyMassIndex',
       'waterRequirements', 'caloricRequirements']);
 
-  useEffect(() => {    // inicializa os dados
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await axios.post('URL_DO_SERVIDOR', token);
-    //       const data = response.data;
-    //       setUserData(data.userData);
-    //     } catch (error) {
-    //       console.error('Erro ao fazer a solicitação ProfileScreen:', error);
-    //     }
-    //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await getUserData();
+        if (user !== undefined) reset(user);
+      } catch (error) {
+        console.error('init dados user:', error);
+      }
+    };
 
-    //   fetchData();
-
-    reset({});
+    fetchData();
   }, []);
 
-  const handlePostSubmit = async (data) => {    // upa os dados, recebe eles atualizados, faz o set
-    // try {
-    //   const response = await axios.post('URL_DO_SERVIDOR', userData);
-    //   const data = response.data;
-    //   setUserData(data.userData);
-    // } catch (error) {
-    //   console.error('Erro ao fazer a solicitação ProfileScreen:', error);
-    // }
-
-    console.log(data);
-    reset(data);
+  const handlePostSubmit = async (data) => {
+    try {
+      const user = await postUserData(data);
+      reset(user);
+    } catch (error) {
+      console.error('post dados user:', error);
+    }
   };
 
   const handleWeightChange = (value, set) => {
@@ -270,44 +250,44 @@ const ProfileScreen = ({ navigation }) => {
               <Text style={[styles.viewHeader, debug]}>Resultados</Text>
 
               <View style={styles.mainContainer}>
-                  <TextInput
-                    placeholder="Taxa Metabólica Basal"
-                    value={bmr && String(bmr)}
-                    editable={false}
-                    inputStyle={{backgroundColor: colors.darkWhite}}
-                    containerStyle={{
-                      borderTopLeftRadius: moderateScale(5),
-                      borderTopRightRadius: moderateScale(5),
-                    }}
-                  />
+                <TextInput
+                  placeholder="Taxa Metabólica Basal"
+                  value={basalMetabolicRate && String(basalMetabolicRate)}
+                  editable={false}
+                  inputStyle={{ backgroundColor: colors.darkWhite }}
+                  containerStyle={{
+                    borderTopLeftRadius: moderateScale(5),
+                    borderTopRightRadius: moderateScale(5),
+                  }}
+                />
 
-                  <TextInput
-                    placeholder="Índice de Massa Corporal"
-                    value={bmi && String(bmi)}
-                    editable={false}
-                    inputStyle={{backgroundColor: colors.darkWhite}}
-                  />
+                <TextInput
+                  placeholder="Índice de Massa Corporal"
+                  value={bodyMassIndex && String(bodyMassIndex)}
+                  editable={false}
+                  inputStyle={{ backgroundColor: colors.darkWhite }}
+                />
 
-                  <TextInput
-                    placeholder="Requisitos de Água (ml)"
-                    value={waterRequirements && String(waterRequirements)}
-                    editable={false}
-                    inputStyle={{backgroundColor: colors.darkWhite}}
-                  />
+                <TextInput
+                  placeholder="Requisitos de Água (ml)"
+                  value={waterRequirements && String(waterRequirements)}
+                  editable={false}
+                  inputStyle={{ backgroundColor: colors.darkWhite }}
+                />
 
-                  <TextInput
-                    placeholder="Requisitos Calóricos (kcal)"
-                    value={caloricRequirements && String(caloricRequirements)}
-                    editable={false}
-                    inputStyle={{backgroundColor: colors.darkWhite}}
-                    containerStyle={{
-                      borderBottomWidth: 0,
-                      borderBottomLeftRadius: moderateScale(5),
-                      borderBottomRightRadius: moderateScale(5),
-                    }}
-                  />
-                </View>
+                <TextInput
+                  placeholder="Requisitos Calóricos (kcal)"
+                  value={caloricRequirements && String(caloricRequirements)}
+                  editable={false}
+                  inputStyle={{ backgroundColor: colors.darkWhite }}
+                  containerStyle={{
+                    borderBottomWidth: 0,
+                    borderBottomLeftRadius: moderateScale(5),
+                    borderBottomRightRadius: moderateScale(5),
+                  }}
+                />
               </View>
+            </View>
             <Button title="SALVAR" onPress={handleSubmit(handlePostSubmit)} />
           </View>
         </ScrollView>
