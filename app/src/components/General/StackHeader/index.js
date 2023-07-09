@@ -4,14 +4,15 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 
-const Header = () => {
+const StackHeader = ({ title, leftButton }) => {
   return (
-    <SafeAreaView style={{ backgroundColor: colors.lightGreen }}>
+    <SafeAreaView style={[{ backgroundColor: colors.lightGreen }, debug]}>
       <View style={[styles.container, debug]}>
-        <Text style={styles.text}>NutriPlanner</Text>
+        {leftButton}
+        <Text style={[styles.text, debug]}>{title}</Text>
       </View>
     </SafeAreaView>
   )
 }
 
-export default Header;
+export default StackHeader;

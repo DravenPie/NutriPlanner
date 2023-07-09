@@ -2,6 +2,8 @@ import * as yup from 'yup';
 
 import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { debug, padding } from '@styles/global';
+import { moderateScale, verticalScale } from '@styles/metrics';
 import { useEffect, useState } from 'react';
 
 import Button from 'components/ProfileScreen/Button';
@@ -10,9 +12,7 @@ import SelectionScreenModal from '@components/ProfileScreen/SelectionScreenModal
 import TextInput from '@components/ProfileScreen/TextInput'
 import TextSelection from '@components/ProfileScreen/TextSelection';
 import { colors } from '@styles/colors';
-import { debug } from '@styles/global';
 import styles from './styles';
-import { verticalScale } from '@styles/metrics';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 LogBox.ignoreLogs([
@@ -40,7 +40,7 @@ const schema = yup.object({
 });
 
 const ProfileScreen = ({ navigation }) => {
-  const { control, handleSubmit, formState: { errors }, reset, getValues } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset, watch } = useForm({
     defaultValues: {
       height: undefined,
       weight: undefined,
@@ -52,6 +52,10 @@ const ProfileScreen = ({ navigation }) => {
     },
     resolver: yupResolver(schema),
   });
+
+  const [ sex, bmi, bmr, waterRequirements,
+    caloricRequirements ] = watch(['sex', 'bmi', 'bmr',
+      'waterRequirements', 'caloricRequirements']);
 
   useEffect(() => {    // inicializa os dados
     //   const fetchData = async () => {
@@ -111,178 +115,199 @@ const ProfileScreen = ({ navigation }) => {
             <View style={[styles.view, debug]}>
               <Text style={[styles.viewHeader, debug]}>Perfil</Text>
 
-              <Controller
-                control={control}
-                name="height"
-                render={({ field: { onChange, value } }) => (
-                  <TextInput
-                    placeholder="Altura (cm)"
-                    value={value && String(value)}
-                    onChangeText={onChange}
-                    maxLength={3}
-                    style={errors.height && { borderColor: colors.red }}
-                  />
-                )}
-              />
+              <View style={styles.mainContainer}>
+                <Controller
+                  control={control}
+                  name="height"
+                  render={({ field: { onChange, value } }) => (
+                    <TextInput
+                      placeholder="Altura (cm)"
+                      value={value && String(value)}
+                      onChangeText={onChange}
+                      maxLength={3}
+                      error={errors.height}
+                      containerStyle={{
+                        borderTopLeftRadius: moderateScale(5),
+                        borderTopRightRadius: moderateScale(5),
+                      }}
+                    />
+                  )}
+                />
 
-              <Controller
-                control={control}
-                name="weight"
-                render={({ field: { onChange, value } }) => (
-                  <TextInput
-                    placeholder="Peso (kg)"
-                    value={value && String(value)}
-                    onChangeText={(data) => { handleWeightChange(data, onChange) }}
-                    style={errors.weight && { borderColor: colors.red }}
-                  />
-                )}
-              />
+                <Controller
+                  control={control}
+                  name="weight"
+                  render={({ field: { onChange, value } }) => (
+                    <TextInput
+                      placeholder="Peso (kg)"
+                      value={value && String(value)}
+                      onChangeText={(data) => { handleWeightChange(data, onChange) }}
+                      error={errors.weight}
+                    />
+                  )}
+                />
 
-              <Controller
-                control={control}
-                name="age"
-                render={({ field: { onChange, value } }) => (
-                  <TextInput
-                    placeholder="Idade"
-                    value={value && String(value)}
-                    onChangeText={onChange}
-                    maxLength={3}
-                    style={errors.age && { borderColor: colors.red }}
-                  />
-                )}
-              />
+                <Controller
+                  control={control}
+                  name="age"
+                  render={({ field: { onChange, value } }) => (
+                    <TextInput
+                      placeholder="Idade"
+                      value={value && String(value)}
+                      onChangeText={onChange}
+                      maxLength={3}
+                      error={errors.age}
+                    />
+                  )}
+                />
 
-              <TextSelection
-                placeholder="Sexo"
-                value={getValues().sex}
-                onPress={() => { toggleModal() }}
-              />
+                <TextSelection
+                  placeholder="Sexo"
+                  value={sex}
+                  onPress={() => { toggleModal() }}
+                />
 
-              <Controller
-                control={control}
-                name="sex"
-                render={({ field: { onChange, value } }) => (
-                  <SelectionScreenModal
-                    labelList={['Masculino', 'Feminino']}
-                    isVisible={isSexModalVisible}
-                    onToggleModal={toggleModal}
-                    value={value}
-                    onChange={onChange}
-                  />
-                )}
-              />
+                <Controller
+                  control={control}
+                  name="sex"
+                  render={({ field: { onChange, value } }) => (
+                    <SelectionScreenModal
+                      labelList={['Masculino', 'Feminino']}
+                      isVisible={isSexModalVisible}
+                      onToggleModal={toggleModal}
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
+                />
 
-              <Controller
-                control={control}
-                name="activityLevel"
-                render={({ field: { onChange, value } }) => (
-                  <TextSelection
-                    placeholder="Nível de atividade"
-                    value={value}
-                    onPress={() => {
-                      navigation.navigate('ActivityLevelScreen', {
-                        params: {
-                          itemList: [
-                            ['Baixo', 'Pouquíssimo exercício ou nenhum'],
-                            ['Moderado', 'Pouco exercício, 1 a 3 vezes por semana'],
-                            ['Alto', 'Exercício moderado, 3 a 5 vezes por semana'],
-                            ['Muito alto', 'Exercício intenso, 6 a 7 vezes por semana'],
-                            ['Hiperativo', 'Exercício muito intenso, atividade física, 2 horas ou mais']
-                          ],
-                          value: value,
-                          onChange: onChange,
-                        },
-                      });
-                    }}
-                  />
-                )}
-              />
+                <Controller
+                  control={control}
+                  name="activityLevel"
+                  render={({ field: { onChange, value } }) => (
+                    <TextSelection
+                      placeholder="Nível de atividade"
+                      value={value}
+                      onPress={() => {
+                        navigation.navigate('ActivityLevelScreen', {
+                          params: {
+                            itemList: [
+                              ['Baixo', 'Pouquíssimo exercício ou nenhum'],
+                              ['Moderado', 'Pouco exercício, 1 a 3 vezes por semana'],
+                              ['Alto', 'Exercício moderado, 3 a 5 vezes por semana'],
+                              ['Muito alto', 'Exercício intenso, 6 a 7 vezes por semana'],
+                              ['Hiperativo', 'Exercício muito intenso, atividade física, 2 horas ou mais']
+                            ],
+                            value: value,
+                            onChange: onChange,
+                          },
+                        });
+                      }}
+                    />
+                  )}
+                />
 
-              <Controller
-                control={control}
-                name="goal"
-                render={({ field: { onChange, value } }) => (
-                  <TextSelection
-                    placeholder="Objetivo"
-                    value={value}
-                    onPress={() => {
-                      navigation.navigate('GoalScreen', {
-                        params: {
-                          itemList: [
-                            ['Perder peso', 'Diminuir os requisitos calóricos em 20%'],
-                            ['Perder peso lentamente', 'Diminuir os requisitos calóricos em 10%'],
-                            ['Manter peso', 'Não alterar os requisitos calóricos'],
-                            ['Aumentar o peso lentamente', 'Aumentar os requisitos calóricos em 10%'],
-                            ['Aumentar o peso', 'Aumentar os requisitos calóricos em 20%']
-                          ],
-                          value: value,
-                          onChange: onChange,
-                        },
-                      });
-                    }}
-                  />
-                )}
-              />
+                <Controller
+                  control={control}
+                  name="goal"
+                  render={({ field: { onChange, value } }) => (
+                    <TextSelection
+                      placeholder="Objetivo"
+                      value={value}
+                      onPress={() => {
+                        navigation.navigate('GoalScreen', {
+                          params: {
+                            itemList: [
+                              ['Perder peso', 'Diminuir os requisitos calóricos em 20%'],
+                              ['Perder peso lentamente', 'Diminuir os requisitos calóricos em 10%'],
+                              ['Manter peso', 'Não alterar os requisitos calóricos'],
+                              ['Aumentar o peso lentamente', 'Aumentar os requisitos calóricos em 10%'],
+                              ['Aumentar o peso', 'Aumentar os requisitos calóricos em 20%']
+                            ],
+                            value: value,
+                            onChange: onChange,
+                          },
+                        });
+                      }}
+                    />
+                  )}
+                />
 
-              <Controller
-                control={control}
-                name="dietType"
-                render={({ field: { onChange, value } }) => (
-                  <TextSelection
-                    placeholder="Tipo de dieta"
-                    value={value}
-                    onPress={() => {
-                      navigation.navigate('DietTypeScreen', {
-                        params: {
-                          itemList: [
-                            ['Padrão', '50% Carboidratos, 20% Proteínas, 30% Gorduras'],
-                            ['Equilibrado', '50% Carboidratos, 25% Proteínas, 25% Gorduras'],
-                            ['Pobre em gorduras', '60% Carboidratos, 25% Proteínas, 15% Gorduras'],
-                            ['Rico em proteínas', '25% Carboidratos, 40% Proteínas, 35% Gorduras'],
-                            ['Cetogénica', '5% Carboidratos, 30% Proteínas, 65% Gorduras']
-                          ],
-                          value: value,
-                          onChange: onChange,
-                        },
-                      });
-                    }}
-                  />
-                )}
-              />
+                <Controller
+                  control={control}
+                  name="dietType"
+                  render={({ field: { onChange, value } }) => (
+                    <TextSelection
+                      placeholder="Tipo de dieta"
+                      value={value}
+                      onPress={() => {
+                        navigation.navigate('DietTypeScreen', {
+                          params: {
+                            itemList: [
+                              ['Padrão', '50% Carboidratos, 20% Proteínas, 30% Gorduras'],
+                              ['Equilibrado', '50% Carboidratos, 25% Proteínas, 25% Gorduras'],
+                              ['Pobre em gorduras', '60% Carboidratos, 25% Proteínas, 15% Gorduras'],
+                              ['Rico em proteínas', '25% Carboidratos, 40% Proteínas, 35% Gorduras'],
+                              ['Cetogénica', '5% Carboidratos, 30% Proteínas, 65% Gorduras']
+                            ],
+                            value: value,
+                            onChange: onChange,
+                          },
+                        });
+                      }}
+                      containerStyle={{
+                        borderBottomWidth: 0,
+                        borderBottomLeftRadius: moderateScale(5),
+                        borderBottomRightRadius: moderateScale(5),
+                      }}
+                    />
+                  )}
+                />
+              </View>
             </View>
 
             <View style={[styles.view, debug]}>
               <Text style={[styles.viewHeader, debug]}>Resultados</Text>
 
-              <TextInput
-                placeholder="Taxa Metabólica Basal"
-                value={getValues().bmr && String(getValues().bmr)}
-                editable={false}
-                style={{backgroundColor: colors.darkWhite}}
-              />
+              <View style={styles.mainContainer}>
+                  <TextInput
+                    placeholder="Taxa Metabólica Basal"
+                    value={bmr && String(bmr)}
+                    editable={false}
+                    inputStyle={{backgroundColor: colors.darkWhite}}
+                    containerStyle={{
+                      borderTopLeftRadius: moderateScale(5),
+                      borderTopRightRadius: moderateScale(5),
+                    }}
+                  />
 
-              <TextInput
-                placeholder="Índice de Massa Corporal"
-                value={getValues().bmi && String(getValues().bmi)}
-                editable={false}
-                style={{backgroundColor: colors.darkWhite}}
-              />
+                  <TextInput
+                    placeholder="Índice de Massa Corporal"
+                    value={bmi && String(bmi)}
+                    editable={false}
+                    inputStyle={{backgroundColor: colors.darkWhite}}
+                  />
 
-              <TextInput
-                placeholder="Requisitos de Água (ml)"
-                value={getValues().waterRequirements && String(getValues().waterRequirements)}
-                editable={false}
-                style={{backgroundColor: colors.darkWhite}}
-              />
+                  <TextInput
+                    placeholder="Requisitos de Água (ml)"
+                    value={waterRequirements && String(waterRequirements)}
+                    editable={false}
+                    inputStyle={{backgroundColor: colors.darkWhite}}
+                  />
 
-              <TextInput
-                placeholder="Requisitos Calóricos (kcal)"
-                value={getValues().caloricRequirements && String(getValues().caloricRequirements)}
-                editable={false}
-                style={{backgroundColor: colors.darkWhite}}
-              />
-            </View>
-
+                  <TextInput
+                    placeholder="Requisitos Calóricos (kcal)"
+                    value={caloricRequirements && String(caloricRequirements)}
+                    editable={false}
+                    inputStyle={{backgroundColor: colors.darkWhite}}
+                    containerStyle={{
+                      borderBottomWidth: 0,
+                      borderBottomLeftRadius: moderateScale(5),
+                      borderBottomRightRadius: moderateScale(5),
+                    }}
+                  />
+                </View>
+              </View>
             <Button title="SALVAR" onPress={handleSubmit(handlePostSubmit)} />
           </View>
         </ScrollView>

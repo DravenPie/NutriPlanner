@@ -9,9 +9,10 @@ import { XIcon } from '@components/General/Icons';
 import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
+import { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-const schema = yup.object({
+const mainSchema = yup.object({
   name: yup.string().required(),
   kcal: yup.number().positive().required(),
   quantity: yup.number().positive().required(),
@@ -20,16 +21,28 @@ const schema = yup.object({
   fat: yup.number().positive().required(),
 });
 
-const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit }) => {
-  const { control, handleSubmit, formState: { errors }, reset, getValues } = useForm({
-    defaultValues: isRegister ?
-      {
-        id: undefined, name: undefined, kcal: undefined,
-        quantity: undefined, carb: undefined, prot: undefined, fat: undefined
-      }
-      : food,
-    resolver: yupResolver(schema),
+const addProgressSchema = yup.object({
+  name: yup.string().required(),
+  quantity: yup.number().positive().required(),
+})
+
+const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible, onToggleModal, onSubmit }) => {
+  const { control, handleSubmit, formState: { errors }, reset, watch, setValue } = useForm({
+    defaultValues: food,
+    resolver: yupResolver( isAddProgress ? addProgressSchema : mainSchema ),
   });
+
+  const ingestedQuantity = (isAddProgress && !isWater) ? parseInt(watch('quantity')) : undefined;
+  useEffect(() => {
+    if (ingestedQuantity || ingestedQuantity === 0) {
+      const rate = ingestedQuantity / food.quantity;
+
+      setValue('kcal', rate * food.kcal);
+      setValue('carb', rate * food.carb);
+      setValue('prot', rate * food.prot);
+      setValue('fat', rate * food.fat);
+    }
+  }, [ingestedQuantity]);
 
   const itemList = [
     ['Calorias (Kcal)', 'kcal'],
@@ -47,13 +60,13 @@ const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit
       transparent={true}
     >
       <View style={[styles.container, debug]}>
-        <View style={[styles.header, debug]}>
-          <XIcon
-            containerStyle={[{ width: '15%' }, debug]}
-            size={22}
-            color={colors.white}
-            onPress={onToggleModal}
-          />
+        <View style={[styles.header, (isWater && !isAddProgress) && { marginBottom: 0 }, debug]}>
+            <XIcon
+              containerStyle={[{ width: '15%' }, debug]}
+              size={22}
+              color={colors.white}
+              onPress={onToggleModal}
+            />
             <Controller
               control={control}
               name="name"
@@ -61,12 +74,13 @@ const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit
                 <TextInput
                   style={[
                     styles.headerText,
+                    isAddProgress && isWater && { width: 'auto' },
                     debug
                   ]}
                   placeholder="Alimento"
                   placeholderTextColor={colors.lightWhite}
                   cursorColor={colors.white}
-                  value={value}
+                  value={value && String(value)}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   keyboardType='default'
@@ -74,8 +88,30 @@ const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit
                 />
               )}
             />
+            
+          {isAddProgress && isWater &&
+            <Controller
+              control={control}
+              name="quantity"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={[
+                    styles.headerTextAddProgress,
+                    debug
+                  ]}
+                  placeholder="ml"
+                  placeholderTextColor={colors.lightGrey}
+                  cursorColor={colors.darkGrey}
+                  value={value && String(value)}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  keyboardType='number-pad'
+                  textAlign="right"
+                />
+              )}
+            />}
         </View>
-        {itemList.map(([label, name], index) => (
+        {isWater || itemList.map(([label, name], index) => (
           <View
             key={index}
             style={[styles.foodDisplay, debug]}
@@ -90,37 +126,45 @@ const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit
                 <TextInput
                   style={[
                     styles.foodDisplayInput,
-                    isRegister ? { color: colors.black } : { color: colors.lightGrey },
-                    errors[name] && { borderColor: colors.red },
+                    isRegister || ((name === 'quantity') && isAddProgress)
+                      ? { color: colors.black }
+                      : { color: colors.lightGrey },
+                    errors[name] && (isAddProgress
+                      ? (name === 'quantity') && { borderColor: colors.red }
+                      : { borderColor: colors.red }),
                     debug
                   ]}
                   placeholder={isRegister ? 'Obrigatório' : undefined}
                   placeholderTextColor={colors.lightGrey}
                   cursorColor={colors.darkGrey}
                   textAlign='center'
-                  value={value && String(value)}
+                  value={(value === 0 || value) && String(value)}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   keyboardType='number-pad'
-                  editable={isRegister}
+                  editable={
+                    isRegister || ((name === 'quantity') && isAddProgress)
+                  }
                 />
               )}
             />
           </View>
         ))}
 
-        {isRegister ?
+        {isRegister || isAddProgress ?
+          (isWater && !isAddProgress) ||
           <Button
             title={'SALVAR'}
             onPress={(data) => {
-              onToggleModal();
               return handleSubmit((data) => {
                 onSubmit(data);
+                onToggleModal();
                 reset();
               })(data);
             }}
           />
           :
+          isWater ||
           <Button
             textStyle={{ color: colors.red }}
             title={'EXCLUIR'}
@@ -130,8 +174,6 @@ const FoodDisplayModal = ({ isRegister, food, isVisible, onToggleModal, onSubmit
             }}
           />
         }
-
-
       </View>
     </Modal>
   );

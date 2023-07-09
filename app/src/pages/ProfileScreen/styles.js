@@ -7,8 +7,7 @@ import { padding } from '@styles/global';
 const styles = StyleSheet.create({
   container: {
     ...defaultContainer(),
-    marginTop: 0,
-    
+
     backgroundColor: colors.lightGreen,
     alignItems: 'center'
   },
@@ -23,6 +22,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.black,
   },
+
+  mainContainer: {
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(5),
+    borderColor: colors.lightGrey,
+
+    elevation: moderateScale(1),
+    shadowColor: colors.black,
+  }
 });
 
 export default styles;

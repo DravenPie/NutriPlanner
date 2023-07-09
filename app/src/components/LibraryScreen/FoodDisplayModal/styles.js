@@ -51,6 +51,16 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(5),
     borderColor: colors.darkGrey,
   },
+
+  headerTextAddProgress: {
+    width: '30%',
+    color: colors.black,
+    backgroundColor: colors.white,
+    fontSize: moderateScale(14),
+    ...padding(0, 10),
+    borderRadius: moderateScale(5),
+    marginLeft: horizontalScale(50),
+  }
 });
 
 export default styles;

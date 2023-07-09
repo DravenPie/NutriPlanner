@@ -5,7 +5,7 @@ import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
 
-const FoodDisplay = ({ food, onSubmit }) => {
+const FoodDisplay = ({ isWater, isAddProgress, food, onSubmit }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -14,30 +14,46 @@ const FoodDisplay = ({ food, onSubmit }) => {
   return (
     <TouchableOpacity
       style={[styles.container, debug]}
-      onPress={() => { toggleModal() }}
+      onPress={() => { !isAddProgress && isWater || toggleModal() }}
       activeOpacity={0.7}
     >
-      <View style={[{ width: '30%' }, debug]}>
+      <View style={[
+        styles.labelContainer,
+        isWater && { width: '100%', alignItems: 'center' },
+        debug
+      ]}>
         <Text
           style={[styles.text, debug]}
           numberOfLines={1} 
           ellipsizeMode="tail"
         >{food.name}</Text>
-        <Text
-          numberOfLines={1} 
-          ellipsizeMode="tail"
-          style={[styles.text, debug]}
-        >{food.quantity && String(food.quantity)}g</Text>
+
+        {isWater ||
+          <Text
+            numberOfLines={1} 
+            ellipsizeMode="tail"
+            style={[styles.text, debug]}
+          >
+            {food.quantity && String(food.quantity) + 'g'}
+          </Text>}
       </View>
-      <View style={[styles.propertiesContainer,  debug]}>
-        <Text
-          numberOfLines={1} 
-          ellipsizeMode="tail"
-          style={[styles.text,  debug]}
-        >{food.kcal && String(food.kcal)} Kcal  C: {food.carb && String(food.carb)}  P: {food.prot && String(food.prot)}  G: {food.fat && String(food.fat)}</Text>
-      </View>
+      {isWater ||
+        <View style={[styles.propertiesContainer,  debug]}>
+            <Text
+              numberOfLines={1} 
+              ellipsizeMode="tail"
+              style={[styles.text,  debug]}
+            >
+              {food.kcal && String(food.kcal) + ' Kcal  '}
+              {food.carb && 'C: ' + String(food.carb)}
+              {food.prot && '  P: ' + String(food.prot)}
+              {food.fat && '  G: ' + String(food.fat)}
+            </Text>
+        </View>}
 
       <FoodDisplayModal
+        isWater={isWater}
+        isAddProgress={isAddProgress}
         isRegister={false}
         food={food}
         isVisible={isModalVisible}

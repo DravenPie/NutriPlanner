@@ -1,5 +1,6 @@
 const colors = {
-    lightGreen: '#eef8e9',
+    // lightGreen: '#eef8e9',
+    lightGreen: '#ffffff',
     darkGreen: '#386641',
     mediumGreen: '#6A994E',
     white: '#ffffff',
