@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { User, Food } from './classes';
 
+// Retorna os dados armazenados do usuário, que são fornecidos na tela de Perfil
 const getUserData = async () => {
 
   // A chave para acessar os dados guardados do usuário é "User". Como é apenas um usuário, não tem problema
@@ -36,7 +37,7 @@ const getUserData = async () => {
   // waterRequirements: undefined,     // int ou undefined
   // caloricRequirements: undefined,   // int ou undefined
 
-  // Retorna um array com as info solicitadas
+  // Retorna um vetor com as info solicitadas
   return [height,
     weight,
     age,
@@ -51,6 +52,7 @@ const getUserData = async () => {
 
 }
 
+// Dados os parâmetros fornecidos, atualiza os dados armazenados do usuário e retorna um vetor com os dados atualizados
 const postUserData = async ({
   height,            // int
   weight,            // int
@@ -92,7 +94,7 @@ const postUserData = async ({
   // waterRequirements: undefined,     // int
   // caloricRequirements: undefined,   // int
 
-  // Retorna um array com as info atualizadas
+  // Retorna um vetor com as info atualizadas
   return [
     user.getHeight(),
     user.getWeight(),
