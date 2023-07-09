@@ -52,23 +52,23 @@ class User {
 
 
         switch (activityLevel) {
-            case 1:
+            case 'Baixo':
                 // Baixo
                 bmr += bmr * 1.200;
                 break;
-            case 2:
+            case 'Moderado':
                 // Moderado
                 bmr += bmr * 1.375;
                 break;
-            case 3:
+            case 'Alto':
                 // Alto
                 bmr += bmr * 1.550;
                 break;
-            case 4:
+            case 'Muito alto':
                 // Muito alto
                 bmr += bmr * 1.725;
                 break;
-            case 5:
+            case 'Hiperativo':
                 // Hiperativo
                 bmr += bmr * 1.900;
                 break;
@@ -103,23 +103,23 @@ class User {
         try {
             var caloricRequirements = 0;
             switch (goal) {
-                case 1:
+                case 'Perder peso':
                     // Perder weight
                     caloricRequirements += bmr * 0.8;
                     break;
-                case 2:
+                case 'Perder peso lentamente':
                     // Perder weight lentamente
                     caloricRequirements += bmr * 0.9;
                     break;
-                case 3:
+                case 'Manter peso':
                     // Manter weight
                     caloricRequirements += bmr;
                     break;
-                case 4:
+                case 'Aumentar o peso lentamente':
                     // Aumentar weight lentamente
                     caloricRequirements += bmr * 1.1;
                     break;
-                case 5:
+                case 'Aumentar o peso':
                     // Aumentar weight
                     caloricRequirements += bmr * 1.2;
                     break;

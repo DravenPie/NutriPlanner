@@ -9,9 +9,9 @@ const initUserData = async () => {
   const weight = 100;
   const age = 30;
   const sex = 'Masculino';
-  const activityLevel = 1;
-  const goal = 1;
-  const dietType = 'venenosa';
+  const activityLevel = 'Baixo';
+  const goal = 'Perder peso';
+  const dietType = 'Padrão';
 
   const userInit = new User(
       height,
