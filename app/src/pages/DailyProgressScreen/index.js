@@ -12,35 +12,24 @@ const DailyProgressScreen = ({ navigation }) => {
   const [progressData, setProgressData] = useState({
     calorieConcluded: 10000,
     calorieRemaining: 0,
+    calorieGoal: 0,
 
     carbConcluded: 10000,
     carbRemaining: 0,
+    carbGoal: 0,
 
     protConcluded: 10000,
     protRemaining: 0,
+    protGoal: 0,
 
     fatConcluded: 10000,
     fatRemaining: 0,
+    fatGoal: 0,
 
     waterConcluded: 10000,
     waterRemaining: 0,
+    waterGoal: 10000,
   });
-
-  const handleChange = (fieldName, value, setData) => {
-    setData(previous => ({
-      ...previous,
-      [fieldName]: value
-    }));
-  };
-
-  const getProgress = (concluded, remaining) => {
-    if (concluded !== undefined && remaining !== undefined) {
-      return (concluded / (concluded + remaining)) * 100;
-    }
-    return 0;
-  }
-
-  const getGoal = (concluded, remaining) => concluded + remaining;
 
   useEffect(() => {    // inicializa os dados
     //   const fetchData = async () => {
@@ -58,8 +47,26 @@ const DailyProgressScreen = ({ navigation }) => {
     // setProgressData({});
   }, []);
 
+  const handleChange = (fieldName, value, setData) => {
+    setData(previous => ({
+      ...previous,
+      [fieldName]: value
+    }));
+  };
+
+  const getProgress = (concluded, remaining) => {
+    if (concluded !== undefined && remaining !== undefined) {
+      return (concluded / (concluded + remaining)) * 100;
+    }
+    return 0;
+  }
+
+  const onSubmitAddProgress = (data) => {
+    console.log(data);
+  };
+
   return (
-    <SafeAreaView style={styles.view}>
+    <SafeAreaView style={[styles.view, debug]}>
       <ScrollView
         style={[{ width: '100%' }, debug]}
         contentContainerStyle={[{ justifyContent: 'center' }, debug]}
@@ -75,7 +82,7 @@ const DailyProgressScreen = ({ navigation }) => {
               <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{progressData.calorieConcluded} Kcal</Text>
             </View>
 
-            <View>
+            <View style={debug}>
               <ProgressCircle
                 percent={getProgress(
                   progressData.calorieConcluded,
@@ -105,10 +112,10 @@ const DailyProgressScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={styles.container}>
-          <Text style={styles.containerHeaderText}>Macros</Text>
+        <View style={[styles.container, debug]}>
+          <Text style={[styles.containerHeaderText, debug]}>Macros</Text>
           <View style={[styles.contentContainer, { ...padding(10, 20) }, styles.debug]}>
-            <View style={{ width: '30%', alignItems: 'center', justifyContent: 'center' }}>
+            <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <ProgressCircle
                 percent={getProgress(
                   progressData.carbConcluded,
@@ -128,15 +135,15 @@ const DailyProgressScreen = ({ navigation }) => {
                 }%</Text>
               </ProgressCircle>
 
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
                 <Text style={[styles.label, debug]}>Carboidratos</Text>
                 <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>Meta: {
-                  getGoal(progressData.carbConcluded, progressData.carbRemaining)
+                  progressData.carbGoal
                 }g</Text>
               </View>
             </View>
 
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
               <ProgressCircle
                 percent={getProgress(
                   progressData.protConcluded,
@@ -156,15 +163,15 @@ const DailyProgressScreen = ({ navigation }) => {
                 }%</Text>
               </ProgressCircle>
 
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
                 <Text style={[styles.label, debug]}>Proteínas</Text>
                 <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>Meta: {
-                  getGoal(progressData.protConcluded, progressData.protRemaining)
+                  progressData.protGoal
                 }g</Text>
               </View>
             </View>
 
-            <View style={{ width: '30%', alignItems: 'center', justifyContent: 'center' }}>
+            <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <ProgressCircle
                 percent={getProgress(
                   progressData.fatConcluded,
@@ -184,30 +191,64 @@ const DailyProgressScreen = ({ navigation }) => {
                 }%</Text>
               </ProgressCircle>
 
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
                 <Text style={[styles.label, debug]}>Gorduras</Text>
                 <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>Meta: {
-                  getGoal(progressData.fatConcluded, progressData.fatRemaining)
+                  progressData.fatGoal
                 }g</Text>
               </View>
             </View>
           </View>
         </View>
 
-        <View style={styles.container}>
-          <Text style={styles.containerHeaderText}>Água</Text>
-          <View>
-            <View></View>
+        <View style={[styles.container, { ...padding(0, 0, 50, 0) }, debug]}>
+          <Text style={[styles.containerHeaderText, debug]}>Água</Text>
+          <View style={[styles.contentContainer, debug]}>
+            <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
+              <Text style={[styles.label, debug]}>Consumo</Text>
+              <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{progressData.waterConcluded} ml</Text>
+            </View>
 
-            <View></View>
+            <View style={styles.debug}>
+              <ProgressCircle
+                percent={getProgress(
+                  progressData.waterConcluded,
+                  progressData.waterRemaining
+                )}
+                radius={40}
+                borderWidth={5}
+                color={colors.powerBlue}
+                shadowColor={colors.lightGrey}
+                bgColor={colors.white}
+              >
+                <Text style={{ fontSize: moderateScale(16) }}>{
+                  getProgress(
+                    progressData.waterConcluded,
+                    progressData.waterRemaining
+                  )
+                }%</Text>
+              </ProgressCircle>
+            </View>
 
-            <View></View>
+            <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
+              <Text style={[styles.label, debug]}>Meta</Text>
+              <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>
+                {progressData.waterGoal} ml
+              </Text>
+            </View>
           </View>
         </View>
 
         <Button
           title="ADICIONAR PROGRESSO"
-        // onPress={() => { toggleModal() }}
+          onPress={() => {
+            navigation.navigate('LibraryScreen', {
+              params: {
+                isAddProgress: true,
+                onSubmitAddProgress: onSubmitAddProgress,
+              },
+            });
+          }}
         />
       </ScrollView>
     </SafeAreaView>

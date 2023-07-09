@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     alignItems: 'center',
     backgroundColor: colors.white,
-    borderWidth: 1,
+    borderBottomWidth: moderateScale(1),
     borderColor: colors.lightGrey,
     ...padding(0, 10),
     height: verticalScale(35),
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.lightGrey,
     ...padding(0, 5),
-    backgroundColor: colors.darkWhite,
+    backgroundColor: colors.white,
     borderRadius: moderateScale(5),
     height: verticalScale(28)
   },

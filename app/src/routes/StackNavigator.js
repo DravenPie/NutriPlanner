@@ -1,12 +1,12 @@
+import { BackArrow } from 'components/General/Icons';
 import Header from '@components/General/Header'
-import LoginScreen from '@pages/LoginScreen';
-import { SafeAreaView } from 'react-native';
 import SelectionScreen from '@components/ProfileScreen/SelectionScreen';
-import SignUpScreen from '@pages/SignUpScreen';
-import { Header as StackHeader } from '@react-navigation/elements';
+import StackHeader from 'components/General/StackHeader';
 import TopbarNavigator from './TopBarNavigator';
 import { colors } from '@styles/colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getHeaderTitle } from '@react-navigation/elements';
+import { moderateScale } from 'styles/metrics';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,16 +21,6 @@ const StackNavigator = () => {
       }}
     >
       <Stack.Screen
-        name='LoginScreen'
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='SignUpScreen'
-        component={SignUpScreen}
-      />
-      
-      <Stack.Screen
         name='Home'
         component={TopbarNavigator}
         options={{
@@ -41,27 +31,54 @@ const StackNavigator = () => {
         name='ActivityLevelScreen'
         component={SelectionScreen}
         options={{
-          headerStyle: { backgroundColor: colors.mediumGreen },
-          headerTintColor: colors.black,
-          headerTitle: 'Nível de atividade'
+          header: ({ navigation }) => (
+            <StackHeader
+              title={'Nível de atividade'}
+              leftButton={
+                <BackArrow
+                  size={moderateScale(25)}
+                  color={colors.white}
+                  onPress={navigation.goBack}
+                />
+              }
+            />
+          )
         }}
       />
       <Stack.Screen
         name='GoalScreen'
         component={SelectionScreen}
         options={{
-          headerStyle: { backgroundColor: colors.mediumGreen },
-          headerTintColor: colors.black,
-          headerTitle: 'Objetivo'
+          header: ({ navigation }) => (
+            <StackHeader
+              title={'Objetivo'}
+              leftButton={
+                <BackArrow
+                  size={moderateScale(25)}
+                  color={colors.white}
+                  onPress={navigation.goBack}
+                />
+              }
+            />
+          )
         }}
       />
       <Stack.Screen
         name='DietTypeScreen'
         component={SelectionScreen}
         options={{
-          headerStyle: { backgroundColor: colors.mediumGreen },
-          headerTintColor: colors.black,
-          headerTitle: 'Tipo de dieta'
+          header: ({ navigation }) => (
+            <StackHeader
+              title={'Tipo de dieta'}
+              leftButton={
+                <BackArrow
+                  size={moderateScale(25)}
+                  color={colors.white}
+                  onPress={navigation.goBack}
+                />
+              }
+            />
+          )
         }}
       />
     </Stack.Navigator>

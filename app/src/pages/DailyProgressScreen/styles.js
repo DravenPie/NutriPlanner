@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(5),
     borderColor: colors.darkGrey,
     borderWidth: moderateScale(2),
+    
+    elevation: moderateScale(5),
+    shadowColor: colors.black,
   },
   label: {
     color: colors.black,

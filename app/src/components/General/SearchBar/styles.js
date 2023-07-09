@@ -4,7 +4,7 @@ import { moderateScale } from '@styles/metrics';
 import { padding } from '@styles/global';
 
 const styles = StyleSheet.create({
-  Container: {
+  container: {
     backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderBottomWidth: 0,

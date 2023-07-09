@@ -3,36 +3,6 @@ import { debug } from '@styles/global';
 import { moderateScale } from '@styles/metrics';
 import styles from './styles';
 
-const EnvelopeIcon = ({ size, ...props }) => (
-  <Icon
-    name="envelope"
-    type="font-awesome"
-    size={moderateScale(size)}
-    iconStyle={[styles.iconStyle, debug]}
-    {...props}
-  />
-);
-
-const LockIcon = ({ size, ...props }) => (
-  <Icon
-    name="lock"
-    type="font-awesome"
-    size={moderateScale(size)}
-    iconStyle={[styles.iconStyle, debug]}
-    {...props}
-  />
-);
-
-const EyeIcon = ({ active, size, ...props }) => (
-  <Icon
-    name={ active ? "eye" : "eye-slash" }
-    type="font-awesome"
-    size={moderateScale(size)}
-    iconStyle={[styles.iconStyle, debug]}
-    {...props}
-  />
-);
-
 const UserIcon = ({ size, ...props }) => (
   <Icon
     name="user"
@@ -90,14 +60,22 @@ const XIcon = ({ size, ...props }) => (
   />
 );
 
-export { 
-  EnvelopeIcon,
-  LockIcon,
-  EyeIcon,
+const BackArrow = ({ size, ...props }) => (
+  <Icon
+    name="arrowleft"
+    type="antdesign"
+    size={moderateScale(size)}
+    iconStyle={[styles.iconStyle, debug]}
+    {...props}
+  />
+);
+
+export {
   UserIcon,
   BookIcon,
   PieChartIcon,
   ChevronRightIcon,
   SearchIcon,
-  XIcon
+  XIcon,
+  BackArrow
 };
