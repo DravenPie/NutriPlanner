@@ -8,10 +8,10 @@ class User {
         this.goal = goal;
         this.dietType = dietType;
 
-        this.bmr = calcBmr(weight, height, age, sex, activityLevel);
-        this.bmi = calcBmi(weight, height);
-        this.waterRequirements = calcWaterRequirements(weight);
-        this.caloricRequirements = calcCaloricRequirements(bmr, goal);
+        this.bmr = this.calcBmr(weight, height, age, sex, activityLevel);
+        this.bmi = this.calcBmi(weight, height);
+        this.waterRequirements = this.calcWaterRequirements(weight);
+        this.caloricRequirements = this.calcCaloricRequirements(this.bmr, goal);
     }
 
     getHeight() { return this.height; }
@@ -37,14 +37,14 @@ class User {
     setBmi(bmi) { this.bmi = bmi; }
     setWaterRequirements(waterRequirements) { this.waterRequirements = waterRequirements; }
     setCaloricRequirements(caloricRequirements) { this.caloricRequirements = caloricRequirements; }
-    
+
     calcBmr(weight, height, age, sex, activityLevel) {
         try {
             if (sex === 'Masculino') {
-                bmr = 66.500 + (13.750 * weight) + (5.003 * height) - (6.755 * age)
+                var bmr = 66.500 + (13.750 * weight) + (5.003 * height) - (6.755 * age)
             }
             else {
-                bmr = 665.100 + (9.563 * weight) + (1.850 * height) - (4.676 * age)
+                var bmr = 665.100 + (9.563 * weight) + (1.850 * height) - (4.676 * age)
             }
         } catch (error) {
             console.error(error);
@@ -82,7 +82,7 @@ class User {
 
     calcBmi(weight, height) {
         try {
-            bmi = weight / (height * height);
+            bmi = weight / (height/100 * height/100); // Altura estava em cm, para converter para m, divide-se por 100
         } catch (error) {
             console.error(error);
         }
@@ -101,6 +101,7 @@ class User {
 
     calcCaloricRequirements(bmr, goal) {
         try {
+            var caloricRequirements = 0;
             switch (goal) {
                 case 1:
                     // Perder weight
@@ -131,7 +132,6 @@ class User {
         }
         return caloricRequirements;
     };
-
 }
 
 class Food {

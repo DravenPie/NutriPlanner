@@ -2,12 +2,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { User, Food } from './classes';
 
+// Inicializa o usuário com dados fictícios na memória
+const initUserData = async () => {
+
+  const height = 200;
+  const weight = 100;
+  const age = 30;
+  const sex = 'Masculino';
+  const activityLevel = 1;
+  const goal = 1;
+  const dietType = 'venenosa';
+
+  const userInit = new User(
+      height,
+      weight,
+      age,
+      sex,
+      activityLevel,
+      goal,
+      dietType);
+
+  try {
+      await AsyncStorage.setItem('@User', JSON.stringify(userInit))
+  } catch (e) {
+      console.log(e);
+  }
+}
+
 // Retorna os dados armazenados do usuário, que são fornecidos na tela de Perfil
 const getUserData = async () => {
 
   // A chave para acessar os dados guardados do usuário é "User". Como é apenas um usuário, não tem problema
   // Obtém os dados armazenados e os atribui à variável serializedUser
-  const serializedUser = AsyncStorage.getItem('User');
+  const serializedUser = await AsyncStorage.getItem('@User');
 
   // Desserializa as informações obtidas e as atribui à variável deserializedUser
   const deserializedUser = JSON.parse(serializedUser);
@@ -39,21 +66,21 @@ const getUserData = async () => {
 
   // Retorna um vetor com as info solicitadas
   return [height,
-    weight,
-    age,
-    sex,
-    activityLevel,
-    goal,
-    dietType,
-    bmr,
-    bmi,
-    waterRequirements,
-    caloricRequirements]
+      weight,
+      age,
+      sex,
+      activityLevel,
+      goal,
+      dietType,
+      bmr,
+      bmi,
+      waterRequirements,
+      caloricRequirements]
 
 }
 
 // Dados os parâmetros fornecidos, atualiza os dados armazenados do usuário e retorna um vetor com os dados atualizados
-const postUserData = async ({
+const postUserData = async (
   height,            // int
   weight,            // int
   age,               // int
@@ -61,26 +88,24 @@ const postUserData = async ({
   activityLevel,     // string
   goal,              // string
   dietType           // string
-}) => {
+) => {
 
   // Instancia um usuário para serializá-lo e armazenar em um JSON
-  const user = new User(
-    height,
-    weight,
-    age,
-    sex,
-    activityLevel,
-    goal,
-    dietType);
+  const userPost = new User(
+      height,
+      weight,
+      age,
+      sex,
+      activityLevel,
+      goal,
+      dietType)
 
   // manipula os dados e devolve eles atualizados
 
   // Converte o usuário em um JSON para que seja possível armazenar seus dados, já que AsyncStorage só trabalha com string
-  const serializedUser = JSON.stringify(user);
-
   // A chave para acessar os dados guardados do usuário é "User". Como é apenas um usuário, não tem problema
   // Sobrescreve os dados do usuário que estiverem escritos, atualizando-os
-  AsyncStorage.mergeItem('User', serializedUser);
+  await AsyncStorage.mergeItem('@User', JSON.stringify(userPost));
 
   // height: undefined,                // int
   // weight: undefined,                // int
@@ -96,17 +121,17 @@ const postUserData = async ({
 
   // Retorna um vetor com as info atualizadas
   return [
-    user.getHeight(),
-    user.getWeight(),
-    user.getAge(),
-    user.getSex(),
-    user.getActivityLevel(),
-    user.getGoal(),
-    user.getDietType(),
-    user.getBmr(),
-    user.getBmi(),
-    user.getWaterRequirements(),
-    user.getCaloricRequirements()
+      userPost.getHeight(),
+      userPost.getWeight(),
+      userPost.getAge(),
+      userPost.getSex(),
+      userPost.getActivityLevel(),
+      userPost.getGoal(),
+      userPost.getDietType(),
+      userPost.getBmr(),
+      userPost.getBmi(),
+      userPost.getWaterRequirements(),
+      userPost.getCaloricRequirements()
   ]
 }
 
@@ -146,4 +171,4 @@ const postFoodList = async ([{   // exemplo de lista com 1 item, pode ser vazia
   }]
 }
 
-export { getUserData, postUserData, getFoodList, postFoodList };
+export { initUserData, getUserData, postUserData, getFoodList, postFoodList };
