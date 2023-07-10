@@ -1,7 +1,5 @@
 import { horizontalScale, minMaxDimensions, verticalScale } from "./metrics";
 
-import { StatusBar } from "react-native";
-
 const debug = {
   // borderWidth: 1,
   // borderColor: 'red',
@@ -21,11 +19,9 @@ const padding = (a, b, c, d) => {
 
 const defaultContainer = () => {
   return {
+    flex: 1,
     ...minMaxDimensions(),
     ...padding(20),
-
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
   }
 }
 

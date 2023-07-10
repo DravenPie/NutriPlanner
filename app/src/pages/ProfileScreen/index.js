@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 import { Controller, useForm } from 'react-hook-form';
-import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Text, View } from 'react-native';
 import { getUserData, postUserData } from '../../../api';
 import { moderateScale, verticalScale } from '@styles/metrics';
 import { useEffect, useState } from 'react';
@@ -80,7 +80,7 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, debug]}>
+    <View style={[styles.container, debug]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
@@ -292,7 +292,7 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   )
 }
 

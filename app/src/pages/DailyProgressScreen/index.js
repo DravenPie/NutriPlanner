@@ -1,17 +1,17 @@
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { debug, padding } from '@styles/global';
-import { getDailyProgress, postDailyProgress } from '../../../api';
+import { getDailyProgress, initializeDailyProgress, postDailyProgress } from '../../../api';
+import { moderateScale, verticalScale } from 'styles/metrics';
 import { useCallback, useState } from 'react';
 
 import Button from '@components/General/Button';
 import ProgressCircle from 'progress-circle-react-native';
 import { colors } from '@styles/colors';
-import { moderateScale } from 'styles/metrics';
 import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
 const DailyProgressScreen = ({ navigation }) => {
-  const [progressData, setProgressData] = useState({ });
+  const [progressData, setProgressData] = useState({});
 
   useFocusEffect(useCallback(() => {
     const fetchData = async () => {
@@ -46,7 +46,7 @@ const DailyProgressScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.view, debug]}>
+    <View style={[styles.view, debug]}>
       <ScrollView
         style={[{ width: '100%' }, debug]}
         contentContainerStyle={[{ justifyContent: 'center' }, debug]}
@@ -183,7 +183,7 @@ const DailyProgressScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={[styles.container, { ...padding(0, 0, 50, 0) }, debug]}>
+        <View style={[styles.container, { ...padding(0, 0, 35, 0) }, debug]}>
           <Text style={[styles.containerHeaderText, debug]}>Água</Text>
           <View style={[styles.contentContainer, debug]}>
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
@@ -234,8 +234,38 @@ const DailyProgressScreen = ({ navigation }) => {
             });
           }}
         />
+
+        <Button
+          title="LIMPAR"
+          style={{ marginTop: verticalScale(25) }}
+          textStyle={{ color: colors.red }}
+          onPress={() => {
+            initializeDailyProgress(true);
+            setProgressData({
+              kcalConcluded: 0,
+              kcalRemaining: 0,
+              kcalGoal: 0,
+        
+              carbConcluded: 0,
+              carbRemaining: 0,
+              carbGoal: 0,
+        
+              protConcluded: 0,
+              protRemaining: 0,
+              protGoal: 0,
+        
+              fatConcluded: 0,
+              fatRemaining: 0,
+              fatGoal: 0,
+        
+              waterConcluded: 0,
+              waterRemaining: 0,
+              waterGoal: 0,
+            });
+          }}
+        />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

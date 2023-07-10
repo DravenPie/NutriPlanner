@@ -1,9 +1,8 @@
 import { initializeDailyProgress, initializeFoodList, initializeUserData } from '../api';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import StackNavigator from 'routes/StackNavigator';
-import { colors } from 'styles/colors';
 import { useEffect } from 'react';
 
 const App = () => {
@@ -14,7 +13,7 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <StackNavigator />
       </NavigationContainer>

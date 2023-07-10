@@ -1,13 +1,11 @@
-import { StatusBar, StyleSheet } from 'react-native';
 import { moderateScale, verticalScale } from "@styles/metrics";
 
+import { StyleSheet } from 'react-native';
 import { colors } from '@styles/colors';
 import { padding } from 'styles/global';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
-
     width: '100%',
     height: verticalScale(60),
     backgroundColor: colors.mediumGreen,

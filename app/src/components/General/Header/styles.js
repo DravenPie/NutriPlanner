@@ -5,8 +5,6 @@ import { colors } from '@styles/colors';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
-
     width: '100%',
     height: verticalScale(40),
     backgroundColor: colors.mediumGreen,

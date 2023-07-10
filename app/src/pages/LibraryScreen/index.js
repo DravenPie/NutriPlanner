@@ -66,7 +66,7 @@ const LibraryScreen = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, debug]}>
+    <View style={[styles.container, debug]}>
       <View style={debug}>
         <Text style={[styles.headerTitle, debug]}>Biblioteca de alimentos</Text>
         <SearchBar
@@ -117,7 +117,7 @@ const LibraryScreen = ({ route, navigation }) => {
           onSubmit={handlePostSubmit}
         />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   )
 }
 

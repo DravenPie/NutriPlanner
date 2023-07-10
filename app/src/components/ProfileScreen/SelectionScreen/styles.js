@@ -7,7 +7,6 @@ import { colors } from '@styles/colors';
 const styles = StyleSheet.create({
   container: {
     ...defaultContainer(),
-    marginTop: 0,
     backgroundColor: colors.white,
   },
   view: {
