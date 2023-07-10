@@ -1,8 +1,5 @@
 const DailyProgress = ({ dailyProgress, food, user }) => {
   if (user !== undefined) {
-
-    console.log(user.height);
-
     if (user.height === undefined) return {
       kcalConcluded: 0,
       kcalRemaining: 0,
