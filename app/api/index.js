@@ -93,8 +93,7 @@ const postFood = async (data) => {
   try {
     if (data !== undefined) {
       const foodList = await getFoodList('');
-      data.id = (foodList.length !== 0)
-        ? foodList[foodList.length - 1].id + 1 : 1;
+      data.id = Date.now().toString();
 
       const newFoodList = [...foodList, data].sort((a, b) => a.name.localeCompare(b.name));
       await AsyncStorage.setItem(foodListToken, JSON.stringify(newFoodList));

@@ -46,7 +46,7 @@ const DailyProgress = ({ dailyProgress, food, user }) => {
     };
   }
 
-  if (food.id === 0) {
+  if (food.id === '0') {
     dailyProgress.waterConcluded += food.quantity;
     dailyProgress.waterRemaining -= food.quantity;
     return dailyProgress;

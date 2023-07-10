@@ -52,6 +52,7 @@ const FoodDisplay = ({ isWater, isAddProgress, food, onSubmit }) => {
         </View>}
 
       <FoodDisplayModal
+        key={food.id}
         isWater={isWater}
         isAddProgress={isAddProgress}
         isRegister={false}

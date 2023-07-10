@@ -93,13 +93,13 @@ const LibraryScreen = ({ route, navigation }) => {
           <FoodDisplay
             isWater={true}
             isAddProgress={isAddProgress}
-            food={{ id: 0, name: 'Água' }}
+            food={{ id: '0', name: 'Água' }}
             editable={false}
             onSubmit={isAddProgress && onSubmitProgress}
           />
           {foodList.map((food, index) => (
             <FoodDisplay
-              key={index}
+              key={food.id}
               isAddProgress={isAddProgress}
               food={food}
               editable={false}
