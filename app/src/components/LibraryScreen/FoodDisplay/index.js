@@ -44,10 +44,10 @@ const FoodDisplay = ({ isWater, isAddProgress, food, onSubmit }) => {
               ellipsizeMode="tail"
               style={[styles.text,  debug]}
             >
-              {food.kcal != undefined && String(food.kcal) + ' Kcal  '}
-              {food.carb != undefined && 'C: ' + String(food.carb)}
-              {food.prot != undefined && '  P: ' + String(food.prot)}
-              {food.fat != undefined && '  G: ' + String(food.fat)}
+              {food.kcal != undefined && food.kcal.toFixed(0) + ' Kcal  '}
+              {food.carb != undefined && 'C: ' + food.carb.toFixed(2)}
+              {food.prot != undefined && '  P: ' + food.prot.toFixed(2)}
+              {food.fat != undefined && '  G: ' + food.fat.toFixed(2)}
             </Text>
         </View>}
 
