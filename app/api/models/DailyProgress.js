@@ -93,7 +93,7 @@ const macrosRemaining = (user, macro, kcal) => {
       'prot': 0.25 / 4,
       'fat': 0.25 / 9,
     },
-    'Probre em gorduras': {
+    'Pobre em gorduras': {
       'carb': 0.6 / 4,
       'prot': 0.25 / 4,
       'fat': 0.15 / 9,
