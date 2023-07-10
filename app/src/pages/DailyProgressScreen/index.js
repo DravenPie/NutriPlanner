@@ -60,7 +60,7 @@ const DailyProgressScreen = ({ navigation }) => {
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <Text style={[styles.label, debug]}>Consumidas</Text>
               <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{
-                progressData.kcalConcluded.toFixed(0)
+                progressData.kcalConcluded && progressData.kcalConcluded.toFixed(0)
               } Kcal</Text>
             </View>
 
@@ -88,7 +88,7 @@ const DailyProgressScreen = ({ navigation }) => {
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <Text style={[styles.label, debug]}>Restantes</Text>
               <Text style={[styles.value, { color: colors.pastelRed }, debug]}>{
-                progressData.kcalRemaining.toFixed(0)
+                progressData.kcalRemaining && progressData.kcalRemaining.toFixed(0)
               } Kcal</Text>
             </View>
           </View>
@@ -120,7 +120,7 @@ const DailyProgressScreen = ({ navigation }) => {
               <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
                 <Text style={[styles.label, debug]}>Carboidratos</Text>
                 <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>Meta: {
-                  progressData.carbGoal.toFixed(0)
+                  progressData.carbGoal && progressData.carbGoal.toFixed(0)
                 }g</Text>
               </View>
             </View>
@@ -148,7 +148,7 @@ const DailyProgressScreen = ({ navigation }) => {
               <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
                 <Text style={[styles.label, debug]}>Proteínas</Text>
                 <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>Meta: {
-                  progressData.protGoal.toFixed(0)
+                  progressData.protGoal && progressData.protGoal.toFixed(0)
                 }g</Text>
               </View>
             </View>
@@ -176,7 +176,7 @@ const DailyProgressScreen = ({ navigation }) => {
               <View style={[{ alignItems: 'center', justifyContent: 'center' }, debug]}>
                 <Text style={[styles.label, debug]}>Gorduras</Text>
                 <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>Meta: {
-                  progressData.fatGoal.toFixed(0)
+                  progressData.fatGoal && progressData.fatGoal.toFixed(0)
                 }g</Text>
               </View>
             </View>
@@ -189,7 +189,7 @@ const DailyProgressScreen = ({ navigation }) => {
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <Text style={[styles.label, debug]}>Consumo</Text>
               <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{
-                progressData.waterConcluded.toFixed(0)
+                progressData.waterConcluded && progressData.waterConcluded.toFixed(0)
               } ml</Text>
             </View>
 
@@ -217,7 +217,7 @@ const DailyProgressScreen = ({ navigation }) => {
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <Text style={[styles.label, debug]}>Meta</Text>
               <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{
-                progressData.waterGoal.toFixed(0)
+                progressData.waterGoal && progressData.waterGoal.toFixed(0)
               } ml</Text>
             </View>
           </View>
