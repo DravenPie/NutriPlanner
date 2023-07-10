@@ -27,10 +27,13 @@ const DailyProgressScreen = ({ navigation }) => {
   }, []));
 
   const getProgress = (concluded, remaining) => {
-    if (concluded !== undefined && remaining !== undefined) {
-      return ((concluded / (concluded + remaining)) * 100) > 100 ?
-        100 : parseInt(((concluded / (concluded + remaining)) * 100).toFixed(0));
+    console.log(concluded, remaining);
+    if (concluded > 0 && remaining >= 0) {
+      return parseInt(((concluded / (concluded + remaining)) * 100).toFixed(0));
     }
+
+    if (concluded > 0 && remaining <= 0) return 100;
+
     return 0;
   }
 

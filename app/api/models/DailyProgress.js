@@ -1,30 +1,29 @@
 const DailyProgress = ({ dailyProgress, food, user }) => {
   if (user !== undefined) {
-    for (let prop in user) {
-      if (user[prop] === undefined) {
-        return {
-          kcalConcluded: 0,
-          kcalRemaining: 0,
-          kcalGoal: 0,
-    
-          carbConcluded: 0,
-          carbRemaining: 0,
-          carbGoal: 0,
-    
-          protConcluded: 0,
-          protRemaining: 0,
-          protGoal: 0,
-    
-          fatConcluded: 0,
-          fatRemaining: 0,
-          fatGoal: 0,
-    
-          waterConcluded: 0,
-          waterRemaining: 0,
-          waterGoal: 0,
-        };
-      }
-    }
+
+    console.log(user.height);
+
+    if (user.height === undefined) return {
+      kcalConcluded: 0,
+      kcalRemaining: 0,
+      kcalGoal: 0,
+
+      carbConcluded: 0,
+      carbRemaining: 0,
+      carbGoal: 0,
+
+      protConcluded: 0,
+      protRemaining: 0,
+      protGoal: 0,
+
+      fatConcluded: 0,
+      fatRemaining: 0,
+      fatGoal: 0,
+
+      waterConcluded: 0,
+      waterRemaining: 0,
+      waterGoal: 0,
+    };
 
     const kcal = kcalRemaining(user);
     return {
