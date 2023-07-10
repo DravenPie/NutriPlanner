@@ -1,68 +1,46 @@
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { debug, padding } from '@styles/global';
-import { useEffect, useState } from 'react';
+import { getDailyProgress, postDailyProgress } from '../../../api';
+import { useCallback, useState } from 'react';
 
 import Button from '@components/General/Button';
 import ProgressCircle from 'progress-circle-react-native';
 import { colors } from '@styles/colors';
 import { moderateScale } from 'styles/metrics';
 import styles from './styles';
+import { useFocusEffect } from '@react-navigation/native';
 
 const DailyProgressScreen = ({ navigation }) => {
-  const [progressData, setProgressData] = useState({
-    calorieConcluded: 10000,
-    calorieRemaining: 0,
-    calorieGoal: 0,
+  const [progressData, setProgressData] = useState({ });
 
-    carbConcluded: 10000,
-    carbRemaining: 0,
-    carbGoal: 0,
+  useFocusEffect(useCallback(() => {
+    const fetchData = async () => {
+      try {
+        const dailyProgress = await getDailyProgress();
+        if (dailyProgress !== undefined) setProgressData(dailyProgress);
+      } catch (error) {
+        console.error('init dados dailyProgress:', error);
+      }
+    };
 
-    protConcluded: 10000,
-    protRemaining: 0,
-    protGoal: 0,
-
-    fatConcluded: 10000,
-    fatRemaining: 0,
-    fatGoal: 0,
-
-    waterConcluded: 10000,
-    waterRemaining: 0,
-    waterGoal: 10000,
-  });
-
-  useEffect(() => {    // inicializa os dados
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await axios.post('URL_DO_SERVIDOR', token);
-    //       const data = response.data;
-    //       setProgressData(data.progressData);
-    //     } catch (error) {
-    //       console.error('Erro ao fazer a solicitação ProfileScreen:', error);
-    //     }
-    //   };
-
-    //   fetchData();
-
-    // setProgressData({});
-  }, []);
-
-  const handleChange = (fieldName, value, setData) => {
-    setData(previous => ({
-      ...previous,
-      [fieldName]: value
-    }));
-  };
+    fetchData();
+  }, []));
 
   const getProgress = (concluded, remaining) => {
     if (concluded !== undefined && remaining !== undefined) {
-      return (concluded / (concluded + remaining)) * 100;
+      return ((concluded / (concluded + remaining)) * 100) > 100 ?
+        100 : parseInt(((concluded / (concluded + remaining)) * 100).toFixed(0));
     }
     return 0;
   }
 
-  const onSubmitAddProgress = (data) => {
-    console.log(data);
+  const onSubmitAddProgress = async (data) => {
+    try {
+      const dailyProgress = await postDailyProgress(data);
+      setProgressData(dailyProgress);
+    } catch (error) {
+      console.error('post dados dailyProgress:', error);
+    }
   };
 
   return (
@@ -79,14 +57,14 @@ const DailyProgressScreen = ({ navigation }) => {
           <View style={[styles.contentContainer, styles.debug]}>
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <Text style={[styles.label, debug]}>Consumidas</Text>
-              <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{progressData.calorieConcluded} Kcal</Text>
+              <Text style={[styles.value, { color: colors.pastelGreen }, debug]}>{progressData.kcalConcluded} Kcal</Text>
             </View>
 
             <View style={debug}>
               <ProgressCircle
                 percent={getProgress(
-                  progressData.calorieConcluded,
-                  progressData.calorieRemaining
+                  progressData.kcalConcluded,
+                  progressData.kcalRemaining
                 )}
                 radius={40}
                 borderWidth={5}
@@ -96,8 +74,8 @@ const DailyProgressScreen = ({ navigation }) => {
               >
                 <Text style={{ fontSize: moderateScale(16) }}>{
                   getProgress(
-                    progressData.calorieConcluded,
-                    progressData.calorieRemaining
+                    progressData.kcalConcluded,
+                    progressData.kcalRemaining
                   )
                 }%</Text>
               </ProgressCircle>
@@ -106,7 +84,7 @@ const DailyProgressScreen = ({ navigation }) => {
             <View style={[{ width: '30%', alignItems: 'center', justifyContent: 'center' }, debug]}>
               <Text style={[styles.label, debug]}>Restantes</Text>
               <Text style={[styles.value, { color: colors.pastelRed }, debug]}>
-                {progressData.calorieRemaining} Kcal
+                {progressData.kcalRemaining} Kcal
               </Text>
             </View>
           </View>

@@ -35,11 +35,11 @@ const basalMetabolicRate = (height, weight, age, sex) => {
     'Feminino': 665.100 + (9.563 * weight) + (1.850 * height) - (4.676 * age),
   }[sex];
 
-  return bmr;
+  return parseInt(bmr.toFixed(0));
 };
 
 const bodyMassIndex = (height, weight) => {
-  return weight / ((height / 100) * (height / 100));
+  return parseFloat( (weight / ((height / 100) * (height / 100))).toFixed(2) );
 };
 
 const waterRequirements = (weight) => {
@@ -47,21 +47,13 @@ const waterRequirements = (weight) => {
 };
 
 const caloricRequirements = (activityLevel, bmr) => {
-  return {
+  return parseInt({
     'Baixo': bmr * 1.200,
     'Moderado': bmr * 1.375,
     'Alto': bmr * 1.550,
     'Muito Alto': bmr * 1.725,
     'Hiperativo': bmr * 1.900,
-  }[activityLevel];
-
-  // return {
-  //   'Perder peso': bmr * 0.8,
-  //   'Perder peso lentamente': bmr * 0.9,
-  //   'Manter peso': bmr,
-  //   'Aumentar o peso lentamente': bmr * 1.1,
-  //   'Aumentar o peso': bmr * 1.2,
-  // }[goal];
+  }[activityLevel].toFixed(0));
 };
 
 export default User;

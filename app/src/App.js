@@ -1,4 +1,4 @@
-import { initializeFoodList, initializeUserData } from '../api';
+import { initializeDailyProgress, initializeFoodList, initializeUserData } from '../api';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
@@ -10,6 +10,7 @@ const App = () => {
   useEffect(() => {
     initializeUserData();
     initializeFoodList();
+    initializeDailyProgress();
   }, []);
 
   return (

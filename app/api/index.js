@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DailyProgress from './models/DailyProgress';
 import User from './models/User';
 
-const [userToken, foodListToken] = ['User', 'FoodList'];
+const [userToken, foodListToken, dailyProgressToken] = ['User', 'FoodList', 'DailyProgress'];
 
 const initializeUserData = async () => {
   try {
@@ -40,6 +41,7 @@ const postUserData = async (data) => {
       await AsyncStorage.setItem(userToken, JSON.stringify(user));
     }
 
+    await initializeDailyProgress(true);
     return user;
   } catch (error) {
     console.log('postUserData:', error);
@@ -122,12 +124,65 @@ const deleteFood = async (data) => {
   return undefined;
 }
 
-export { 
+const initializeDailyProgress = async (flag) => {
+  try {
+    const dailyProgress = await getDailyProgress();
+    const user = await getUserData();
+
+    if (!dailyProgress && user || flag) {      
+      const newDailyProgress = DailyProgress({
+        user: user,
+      });
+
+      await AsyncStorage.setItem(dailyProgressToken, JSON.stringify(newDailyProgress));
+    }
+  } catch (error) {
+    console.log('initializeDailyProgress:', error);
+  }
+};
+
+const getDailyProgress = async () => {
+  try {
+    const dailyProgress = await AsyncStorage.getItem(dailyProgressToken);
+    return dailyProgress !== null ? JSON.parse(dailyProgress) : undefined;
+  } catch (error) {
+    console.log('getDailyProgress:', error);
+  }
+
+  return undefined;
+}
+
+const postDailyProgress = async (data) => {
+  try {
+    const dailyProgress = await getDailyProgress();
+    if (dailyProgress !== undefined) {
+
+      const newDailyProgress = DailyProgress({
+        dailyProgress: dailyProgress,
+        food: data,
+      });
+
+      await AsyncStorage.setItem(dailyProgressToken, JSON.stringify(newDailyProgress));
+      return newDailyProgress;
+    }
+
+    return dailyProgress;
+  } catch (error) {
+    console.log('postDailyProgress:', error);
+  }
+
+  return undefined;
+}
+
+export {
   initializeUserData,
   getUserData,
   postUserData,
   initializeFoodList,
   getFoodList,
   postFood,
-  deleteFood
+  deleteFood,
+  initializeDailyProgress,
+  getDailyProgress,
+  postDailyProgress,
 };
