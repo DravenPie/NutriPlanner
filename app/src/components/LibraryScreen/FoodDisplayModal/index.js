@@ -29,7 +29,7 @@ const addProgressSchema = yup.object({
 const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible, onToggleModal, onSubmit }) => {
   const { control, handleSubmit, formState: { errors }, reset, watch, setValue } = useForm({
     defaultValues: food,
-    resolver: yupResolver( isAddProgress ? addProgressSchema : mainSchema ),
+    resolver: yupResolver(isAddProgress ? addProgressSchema : mainSchema),
   });
 
   const ingestedQuantity = (isAddProgress && !isWater) ? parseInt(watch('quantity')) : undefined;
@@ -44,6 +44,15 @@ const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible,
     }
   }, [ingestedQuantity]);
 
+  const [carb, prot, fat] = [watch('carb'), watch('prot'), watch('fat')];
+  useEffect(() => {
+    if (carb != undefined && prot != undefined && fat != undefined) {
+      setValue('kcal', 
+        carb*4 + prot*4 + fat*9
+      );
+    }
+  }, [carb, prot, fat]);
+
   const itemList = [
     ['Calorias (Kcal)', 'kcal'],
     ['Quantidade (g)', 'quantity'],
@@ -56,39 +65,45 @@ const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible,
     <Modal
       style={[styles.modal, debug]}
       isVisible={isVisible}
-      onBackdropPress={onToggleModal}
+      onBackdropPress={() => {
+        onToggleModal();
+        reset();
+      }}
       transparent={true}
     >
       <View style={[styles.container, debug]}>
         <View style={[styles.header, (isWater && !isAddProgress) && { marginBottom: 0 }, debug]}>
-            <XIcon
-              containerStyle={[{ width: '15%' }, debug]}
-              size={22}
-              color={colors.white}
-              onPress={onToggleModal}
-            />
-            <Controller
-              control={control}
-              name="name"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  style={[
-                    styles.headerText,
-                    isAddProgress && isWater && { width: 'auto' },
-                    debug
-                  ]}
-                  placeholder="Alimento"
-                  placeholderTextColor={colors.lightWhite}
-                  cursorColor={colors.white}
-                  value={value && String(value)}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  keyboardType='default'
-                  editable={isRegister}
-                />
-              )}
-            />
-            
+          <XIcon
+            containerStyle={[{ width: '15%' }, debug]}
+            size={22}
+            color={colors.white}
+            onPress={() => {
+              onToggleModal();
+              reset();
+            }}
+          />
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={[
+                  styles.headerText,
+                  isAddProgress && isWater && { width: 'auto' },
+                  debug
+                ]}
+                placeholder="Alimento"
+                placeholderTextColor={colors.lightWhite}
+                cursorColor={colors.white}
+                value={value && String(value)}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                keyboardType='default'
+                editable={isRegister}
+              />
+            )}
+          />
+
           {isAddProgress && isWater &&
             <Controller
               control={control}
@@ -126,7 +141,7 @@ const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible,
                 <TextInput
                   style={[
                     styles.foodDisplayInput,
-                    isRegister || ((name === 'quantity') && isAddProgress)
+                    (isRegister && (name !== 'kcal')) || ((name === 'quantity') && isAddProgress)
                       ? { color: colors.black }
                       : { color: colors.lightGrey },
                     errors[name] && (isAddProgress
@@ -134,7 +149,7 @@ const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible,
                       : { borderColor: colors.red }),
                     debug
                   ]}
-                  placeholder={isRegister ? 'Obrigatório' : undefined}
+                  placeholder={(isRegister && (name !== 'kcal')) ? 'Obrigatório' : undefined}
                   placeholderTextColor={colors.lightGrey}
                   cursorColor={colors.darkGrey}
                   textAlign='center'
@@ -143,7 +158,7 @@ const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible,
                   onChangeText={onChange}
                   keyboardType='number-pad'
                   editable={
-                    isRegister || ((name === 'quantity') && isAddProgress)
+                    (isRegister && (name !== 'kcal')) || ((name === 'quantity') && isAddProgress)
                   }
                 />
               )}
