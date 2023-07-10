@@ -15,10 +15,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 const mainSchema = yup.object({
   name: yup.string().required(),
   kcal: yup.number().positive().required(),
-  quantity: yup.number().positive().required(),
-  carb: yup.number().positive().required(),
-  prot: yup.number().positive().required(),
-  fat: yup.number().positive().required(),
+  quantity: yup.number().min(0).required(),
+  carb: yup.number().min(0).required(),
+  prot: yup.number().min(0).required(),
+  fat: yup.number().min(0).required(),
 });
 
 const addProgressSchema = yup.object({
