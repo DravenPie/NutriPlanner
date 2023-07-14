@@ -14,12 +14,14 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
-        <StackNavigator />
-      </NavigationContainer>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <StackNavigator />
+        </NavigationContainer>
+      </SafeAreaView>
+      <StatusBar barStyle="auto" />
+    </>
   );
 }
 

@@ -244,13 +244,9 @@ const DailyProgressScreen = ({ navigation }) => {
           title="LIMPAR"
           style={{ marginTop: verticalScale(25) }}
           textStyle={{ color: colors.red }}
-          onPress={() => {
-            initializeDailyProgress(true);
-
-            const setProgress = async () => {
-              setProgressData(await getDailyProgress());
-            }
-            setProgress();            
+          onPress={ async () => {
+            await initializeDailyProgress(true);
+            setProgressData(await getDailyProgress());
           }}
         />
       </ScrollView>
