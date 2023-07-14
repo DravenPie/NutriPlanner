@@ -3,6 +3,10 @@ import { Text, View } from 'react-native';
 import { debug } from '@styles/global';
 import styles from './styles';
 
+/**
+ * main header component
+ * @returns {JSX.Element} - Header component
+ */
 const Header = () => {
   return (
     <View style={[styles.container, debug]}>

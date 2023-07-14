@@ -6,7 +6,12 @@ import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
 
-const SelectionScreen = ({ route, navigation }) => {
+/**
+ * SelectionScreen component
+ * @param {object} route - The navigation route object.
+ * @returns {JSX.Element} - SelectionScreen component
+ */
+const SelectionScreen = ({ route }) => {
   const { itemList, value, onChange } = route.params.params;
   const [checked, setChecked] = useState(value);
 

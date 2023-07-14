@@ -12,6 +12,9 @@ import styles from './styles';
 import { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+/**
+ * Main schema for validating food data when registering.
+ */
 const mainSchema = yup.object({
   name: yup.string().required(),
   kcal: yup.number().positive().required(),
@@ -21,11 +24,24 @@ const mainSchema = yup.object({
   fat: yup.number().min(0).required(),
 });
 
+/**
+ * Schema for validating food data when adding progress.
+ */
 const addProgressSchema = yup.object({
-  name: yup.string().required(),
   quantity: yup.number().positive().required(),
 })
 
+/**
+ * FoodDisplayModal component
+ * @param {boolean} isWater - Indicates whether the displayed food is water.
+ * @param {boolean} isAddProgress - Indicates whether the food display is used for adding progress.
+ * @param {boolean} isRegister - Indicates whether the food display is used for registration.
+ * @param {object} food - The food data to be displayed.
+ * @param {boolean} isVisible - Indicates whether the modal is visible.
+ * @param {function} onToggleModal - The function to be called when the modal is toggled.
+ * @param {function} onSubmit - The function to be called when the form is submitted.
+ * @returns {JSX.Element} - FoodDisplayModal component
+ */
 const FoodDisplayModal = ({ isWater, isAddProgress, isRegister, food, isVisible, onToggleModal, onSubmit }) => {
   const { control, handleSubmit, formState: { errors }, reset, watch, setValue } = useForm({
     defaultValues: food,

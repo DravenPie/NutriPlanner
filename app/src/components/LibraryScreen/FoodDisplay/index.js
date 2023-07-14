@@ -5,6 +5,14 @@ import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
 
+/**
+ * FoodDisplay component
+ * @param {boolean} isWater - Indicates whether the displayed food is water.
+ * @param {boolean} isAddProgress - Indicates whether the food display is used for adding progress.
+ * @param {object} food - The food data to be displayed.
+ * @param {function} onSubmit - The function to be called when the form is submitted.
+ * @returns {JSX.Element} - FoodDisplay component
+ */
 const FoodDisplay = ({ isWater, isAddProgress, food, onSubmit }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {

@@ -7,6 +7,15 @@ import { debug } from '@styles/global';
 import styles from './styles';
 import { useState } from 'react';
 
+/**
+ * SelectionScreenModal component
+ * @param {array} labelList - The list of labels to be displayed.
+ * @param {boolean} isVisible - Indicates whether the modal is visible.
+ * @param {function} onToggleModal - The function to be called when the modal is toggled.
+ * @param {string} value - The currently selected value.
+ * @param {function} onChange - The function to be called when the value is changed.
+ * @returns {JSX.Element} - SelectionScreenModal component
+ */
 const SelectionScreenModal = ({ labelList, isVisible, onToggleModal, value, onChange }) => {
   const [checked, setChecked] = useState(value);
   const bottomBorder = (index) => (

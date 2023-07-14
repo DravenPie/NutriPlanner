@@ -5,6 +5,14 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 
+/**
+ * TextSelection component
+ * @param {string} placeholder - The placeholder text for the selection.
+ * @param {string} value - The selected value.
+ * @param {function} onPress - The function to be called when the selection is pressed.
+ * @param {object} containerStyle - The styles for the container view.
+ * @returns {JSX.Element} - TextSelection component
+ */
 const TextSelection = ({ placeholder, value, onPress, containerStyle }) => {
   return (
     <View style={[styles.container, containerStyle, debug]}>

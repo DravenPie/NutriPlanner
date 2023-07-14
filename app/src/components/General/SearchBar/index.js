@@ -5,6 +5,13 @@ import { colors } from '@styles/colors';
 import { debug } from '@styles/global';
 import styles from './styles';
 
+/**
+ * SearchBar component
+ * @param {function} onChangeText - The function to be called when the text in the search bar changes.
+ * @param {object} containerStyle - (Optional) Additional style properties for the container of the search bar.
+ * @param {object} props - (Optional) Additional props that can be passed to the `SearchBar` component from `react-native-elements`.
+ * @returns {JSX.Element} - SearchBar component
+ */
 const SearchBar = ({ onChangeText, containerStyle, ...props }) => {
   return (
     <SearchB
