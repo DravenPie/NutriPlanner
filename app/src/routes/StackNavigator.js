@@ -5,18 +5,21 @@ import StackHeader from 'components/General/StackHeader';
 import TopbarNavigator from './TopBarNavigator';
 import { colors } from '@styles/colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getHeaderTitle } from '@react-navigation/elements';
 import { moderateScale } from 'styles/metrics';
 
 const Stack = createNativeStackNavigator();
 
+/**
+ * StackNavigator component
+ * @returns {JSX.Element} - StackNavigator component
+ */
 const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShadowVisible: false,
         headerTintColor: colors.darkGrey,
-        headerStyle: { backgroundColor: colors.lightGreen },
+        headerStyle: { backgroundColor: colors.white },
         headerTitle: '',
       }}
     >

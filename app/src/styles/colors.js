@@ -1,6 +1,8 @@
+/**
+ * This file defines a collection of color constants used in the application.
+ */
+
 const colors = {
-    // lightGreen: '#eef8e9',
-    lightGreen: '#ffffff',
     darkGreen: '#386641',
     mediumGreen: '#6A994E',
     white: '#ffffff',

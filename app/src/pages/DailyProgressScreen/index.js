@@ -10,6 +10,11 @@ import { colors } from '@styles/colors';
 import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
+/**
+ * DailyProgressScreen component
+ * @param {object} navigation - The navigation object provided by React Navigation.
+ * @returns {JSX.Element} - DailyProgressScreen component
+ */
 const DailyProgressScreen = ({ navigation }) => {
   const [progressData, setProgressData] = useState({});
 
@@ -241,27 +246,11 @@ const DailyProgressScreen = ({ navigation }) => {
           textStyle={{ color: colors.red }}
           onPress={() => {
             initializeDailyProgress(true);
-            setProgressData({
-              kcalConcluded: 0,
-              kcalRemaining: 0,
-              kcalGoal: 0,
-        
-              carbConcluded: 0,
-              carbRemaining: 0,
-              carbGoal: 0,
-        
-              protConcluded: 0,
-              protRemaining: 0,
-              protGoal: 0,
-        
-              fatConcluded: 0,
-              fatRemaining: 0,
-              fatGoal: 0,
-        
-              waterConcluded: 0,
-              waterRemaining: 0,
-              waterGoal: 0,
-            });
+
+            const setProgress = async () => {
+              setProgressData(await getDailyProgress());
+            }
+            setProgress();            
           }}
         />
       </ScrollView>

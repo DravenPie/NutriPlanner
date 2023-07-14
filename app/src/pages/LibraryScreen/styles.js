@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     ...defaultContainer(),
     marginTop: 0,
     
-    backgroundColor: colors.lightGreen,
+    backgroundColor: colors.white,
   },
   headerTitle: {
     ...padding(0, 0, 10, 0),

@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Text, View } from 'react-native';
 import { debug, padding } from '@styles/global';
 import { deleteFood, getFoodList, postFood } from '../../../api';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,12 @@ import SearchBar from '@components/General/SearchBar';
 import styles from './styles';
 import { verticalScale } from '@styles/metrics';
 
+/**
+ * LibraryScreen component
+ * @param {object} route - The route object provided by React Navigation.
+ * @param {object} navigation - The navigation object provided by React Navigation.
+ * @returns {JSX.Element} - LibraryScreen component
+ */
 const LibraryScreen = ({ route, navigation }) => {
   const { isAddProgress, onSubmitAddProgress } = route?.params?.params
     || { isAddProgress: false, onSubmitAddProgress: undefined }

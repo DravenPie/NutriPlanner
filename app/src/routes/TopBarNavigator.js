@@ -1,4 +1,4 @@
-import { BookIcon, ClipboardIcon, PieChartIcon, UserIcon } from '@components/General/Icons';
+import { BookIcon, PieChartIcon, UserIcon } from '@components/General/Icons';
 
 import DailyProgressScreen from '@pages/DailyProgressScreen';
 import LibraryScreen from '@pages/LibraryScreen';
@@ -10,6 +10,10 @@ import { verticalScale } from '@styles/metrics';
 
 const Tab = createMaterialTopTabNavigator();
 
+/**
+ * TopBarNavigator component
+ * @returns {JSX.Element} - TopBarNavigator component
+ */
 const TopBarNavigator = () => {
   return (
     <Tab.Navigator

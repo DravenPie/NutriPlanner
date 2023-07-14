@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   container: {
     ...defaultContainer(),
 
-    backgroundColor: colors.lightGreen,
+    backgroundColor: colors.white,
     alignItems: 'center'
   },
 

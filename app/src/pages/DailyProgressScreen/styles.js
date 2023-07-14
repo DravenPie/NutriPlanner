@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   view: {
     ...defaultContainer(),
     
-    backgroundColor: colors.lightGreen,
+    backgroundColor: colors.white,
   },
   container: {
     ...padding(0, 0, 20, 0),

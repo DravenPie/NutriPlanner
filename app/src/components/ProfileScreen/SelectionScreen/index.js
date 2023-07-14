@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 /**
  * SelectionScreen component
- * @param {object} route - The navigation route object.
+ * @param {object} route - The route object provided by React Navigation.
  * @returns {JSX.Element} - SelectionScreen component
  */
 const SelectionScreen = ({ route }) => {

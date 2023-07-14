@@ -20,12 +20,20 @@ LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
 
+/**
+ * Schema for validating user data when registering.
+ */
 const schema = yup.object({
   height: yup.number().positive().required(),
   weight: yup.number().positive().required(),
   age: yup.number().positive().required(),
 });
 
+/**
+ * ProfileScreen component
+ * @param {object} navigation - The navigation object provided by React Navigation.
+ * @returns {JSX.Element} - ProfileScreen component
+ */
 const ProfileScreen = ({ navigation }) => {
   const { control, handleSubmit, formState: { errors }, reset, watch } = useForm({
     defaultValues: {
