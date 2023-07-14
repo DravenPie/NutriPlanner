@@ -3,6 +3,7 @@ import { initializeDailyProgress, initializeFoodList, initializeUserData } from 
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import StackNavigator from 'routes/StackNavigator';
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from 'react';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar barStyle="dark-content" />
       <NavigationContainer>
         <StackNavigator />
       </NavigationContainer>
