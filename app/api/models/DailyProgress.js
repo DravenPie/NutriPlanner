@@ -1,5 +1,14 @@
+/**
+ * Calculates the daily progress based on the user and food data.
+ *
+ * @param {object} dailyProgress - The current daily progress object.
+ * @param {object} food - The food object to be added to the daily progress.
+ * @param {object} user - The user object containing user information.
+ * @returns {object} - The updated daily progress object.
+ */
 const DailyProgress = ({ dailyProgress, food, user }) => {
   if (user !== undefined) {
+    // If user height is undefined, return initial daily progress values
     if (user.height === undefined) return {
       kcalConcluded: 0,
       kcalRemaining: 0,
@@ -67,6 +76,12 @@ const DailyProgress = ({ dailyProgress, food, user }) => {
   return dailyProgress;
 }
 
+/**
+ * Calculates the remaining calories based on the user's goal.
+ *
+ * @param {object} user - The user object containing user information.
+ * @returns {number} - The remaining calories.
+ */
 const kcalRemaining = (user) => {
   return parseInt({
     'Perder peso': user.caloricRequirements * 0.8,
@@ -77,6 +92,14 @@ const kcalRemaining = (user) => {
   }[user.goal].toFixed(0));
 }
 
+/**
+ * Calculates the remaining macros (carbs, protein, fat) based on the user's diet type.
+ *
+ * @param {object} user - The user object containing user information.
+ * @param {string} macro - The macro type ('carb', 'prot', 'fat').
+ * @param {number} kcal - The total daily calories.
+ * @returns {number} - The remaining macros.
+ */
 const macrosRemaining = (user, macro, kcal) => {
   const value = kcal * {
     'Padrão': {
