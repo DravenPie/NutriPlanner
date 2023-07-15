@@ -1,20 +1,20 @@
 <h1 align="center">NutriPlanner</h1>
 <div align="center">
-  <img src="images/icon.png" alt="Icone" height="100", style="border-radius: 30%;">
+  <img src="images/icon.png" alt="Icone" height="100">
   <h3 align="center">Seus macros sob controle</h3>
   <p align="center">
   </p>
     <div>
-    <img src="images/perfil.jpg" alt="Captura de tela monstrando a aba de perfil" height="700">
-    <img src="images/biblioteca.jpg" alt="Captura de tela monstrando a aba de biblioteca de alimentos" height="700">
-    <img src="images/progresso.jpg" alt="Captura de tela monstrando a aba de progresso diário" height="700">
+    <img src="images/perfil.jpg" alt="Captura de tela monstrando a aba de perfil" height="400">
+    <img src="images/biblioteca.jpg" alt="Captura de tela monstrando a aba de biblioteca de alimentos" height="400">
+    <img src="images/progresso.jpg" alt="Captura de tela monstrando a aba de progresso diário" height="400">
   </div>
 </div>
 
-  <h1><summary>Sumário</summary></h1>
+  ## Sumário
   <ol>
     <li><a href="#sobre-o-projeto">Sobre o Projeto</a></li>
-    <li><a href="#feito-com">Feito com</a></li>
+    <li><a href="#Tecnologias">Tecnologias</a></li>
     <li><a href="#desenvolvedor">Desenvolvedor</a></li>
     <li><a href="#licenca">Licença</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -29,9 +29,11 @@ NutriPlanner é um aplicativo mobile (android) cujo objetivo é auxiliar em diet
 
 Foi desenvolvido na disciplina de Projeto Integrado I, por alunos de Ciência da Computação da Universidade Federal do Espírito Santo, Brasil.
 
-<div id="feito-com"> </div>
+Clique no <a href="https://expo.dev/accounts/moratti/projects/NutriPlanner/builds/62b416a9-90c5-45e9-b50d-57ae1fb8ad86">link</a> para realizar o download do APK.
 
-## 🔨 Feito com
+<div id="Tecnologias"> </div>
+
+## 🔨 Tecnologias
 
 As tecnologias usadas no desenvolvimento dessa aplicação foram:
 
@@ -67,8 +69,6 @@ Independentemente da opção escolhida, você precisará das seguintes ferrament
 - Expo GO: um aplicativo que permite testar a aplicação em um dispositivo móvel. Você pode encontrá-lo na loja de aplicativos do seu dispositivo.
 
 Lembre-se de que o projeto não é totalmente compatível com a versão web do Expo. Portanto, recomenda-se usar o aplicativo Expo GO para testar a aplicação.
-
----
 
 ### 💻 Criando e manipulando o ambiente
 
@@ -131,7 +131,7 @@ npm start
 
 Para interromper o servidor, pressione Ctrl-C.
 
-Em ambos os casos, o servidor estará sendo executado na porta 19000. Para conectar o Expo Go ao servidor, você precisa inserir a seguinte URL dentro do Expo Go: `exp://<seu endereço IP>:19000`, onde `<seu endereço IP>` é o endereço IP da máquina em que o servidor está sendo executado.
+Em ambos os casos, o servidor estará sendo executado na porta 19000. Para conectar o Expo Go ao servidor, você precisa inserir a seguinte URL dentro do Expo Go: **exp://<seu endereço IP>:19000**, onde **<seu endereço IP>** é o endereço IP da máquina em que o servidor está sendo executado.
 
 <div id="licenca"> </div>
 
