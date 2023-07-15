@@ -1,13 +1,6 @@
-# NutriPlanner
-
-<br />
+<h1 align="center">NutriPlanner</h1>
 <div align="center">
-  <!-- <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/icone.png" alt="Icone"  height="50">
-  </a> -->
-
   <h3 align="center">Seus macros sob controle</h3>
-
   <p align="center">
   </p>
     <div>
@@ -31,7 +24,7 @@
 
 ## 📝 Sobre o projeto
 
-NutriPlanner é um App mobile (android) cujo objetivo é auxiliar em dietas. Para isso, conta com a dinâmica de metas diárias de macronutrientes a serem consumidos. As metas são estabelecidas dadas as métricas biológicas fornecidas pelo usuário. No sistema, o usuário cria uma biblioteca própria com alimentos e receitas, especificando seus macronutrientes e, através deles, registra sua alimentação ao longo do dia.
+NutriPlanner é um aplicativo mobile (android) cujo objetivo é auxiliar em dietas. Para isso, conta com a dinâmica de metas diárias de macronutrientes a serem consumidos. As metas são estabelecidas dadas as métricas biológicas fornecidas pelo usuário. No sistema, o usuário cria uma biblioteca própria com alimentos e receitas, especificando seus macronutrientes e, através deles, registra sua alimentação ao longo do dia.
 
 Foi desenvolvido na disciplina de Projeto Integrado I, por alunos de Ciência da Computação da Universidade Federal do Espírito Santo, Brasil.
 
@@ -41,9 +34,7 @@ Foi desenvolvido na disciplina de Projeto Integrado I, por alunos de Ciência da
 
 As tecnologias usadas no desenvolvimento dessa aplicação foram:
 
-* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-* [React Native](https://reactnative.dev/)
-* [Expo](https://expo.dev/)
+* [Node.js](https://nodejs.org/)
 * [Docker](https://www.docker.com/)
 * [Expo Go](https://expo.dev/client)
 
@@ -55,46 +46,91 @@ Aqui estão as instruções sobre como configurar o projeto localmente.
 
 ### ✅ Instalando pré-requisitos
 
-Os pré-requisitos se resumem às ferramentas no tópico acima. Caso queira usar do Docker, deve-se apenas instalar o Docker (caso não já o tenha em sua máquina) e pular para o tópico seguinte.
-Caso, por algum motivo prefira não usar o Docker, deve-se certificar de que sua máquina está devidamente configurada para trabalhar com as ferramentas citadas acima. Para instalar tanto o Docker quanto as demais, deve-se visitar seus respectivos sites oficiais. A instalação varia a depender do sistema operacional. Ademais, para testar a aplicação, poode-se usar o aplicativo Expo GO. É importante ressaltar que, infelizmente, o projeto não funciona corretamente na versão Expo web.
+Para configurar o ambiente de desenvolvimento, siga as etapas abaixo, dependendo da opção escolhida.
+
+#### Opção 1: Utilizando Docker
+
+1. Se você não possui o Docker instalado em sua máquina, faça o download e instalação a partir do [site oficial do Docker](https://www.docker.com/).
+2. Após a instalação do Docker, prossiga para a próxima seção.
+
+#### Opção 2: Configuração Manual
+
+Caso prefira não utilizar o Docker, certifique-se de que sua máquina esteja configurada corretamente para trabalhar com o Node.js v18.16.1. Siga as etapas abaixo:
+
+1. Verifique se sua máquina atende aos requisitos necessários para o Node.js v18.16.1.
+2. Acesse o [site oficial do Node.js](https://nodejs.org/) e siga as instruções de instalação específicas para o seu sistema operacional.
+
+Independentemente da opção escolhida, você precisará das seguintes ferramentas:
+
+- Docker (caso tenha escolhido a opção 1) ou Node.js v18.16.1 (caso tenha escolhido a opção 2).
+- Expo GO: um aplicativo que permite testar a aplicação em um dispositivo móvel. Você pode encontrá-lo na loja de aplicativos do seu dispositivo.
+
+Lembre-se de que o projeto não é totalmente compatível com a versão web do Expo. Portanto, recomenda-se usar o aplicativo Expo GO para testar a aplicação.
+
+---
 
 ### 💻 Criando e manipulando o ambiente
 
-Clone o repositório.
+Para começar, siga a instrução abaixo para clonar o repositório:
+
 ```sh
-git git@github.com:DravenPie/NutriPlanner.git
+git clone git@github.com:DravenPie/NutriPlanner.git
 ```
 
-#### 🐳 Com o Docker
+#### 🐳 Usando Docker
 
-Execute o comando para montar a imagem e subir o docker:
+Se você preferir usar o Docker para configurar o ambiente, siga as etapas abaixo:
+
+Navegue até o diretório clonado do projeto:
+
 ```sh
-sudo docker-compose up
+cd NutriPlanner
 ```
-Caso o comando falhe, verifique se há algum pré-requisito faltando. Caso o comando tenha sucesso, será criado e executado um conteiner de nome nutriplanner-app-1
 
-Para parar o conteiner (e o servidor), pressione Ctrl-Z ou execute:
+Execute o seguinte comando para construir a imagem e iniciar o contêiner:
+
+```sh
+sudo docker compose up -d
+```
+Se o comando falhar, verifique se você possui todos os pré-requisitos necessários instalados corretamente. Caso contrário, se o comando for bem-sucedido, um contêiner chamado "nutriplanner-app-1" será criado e executado.
+
+Para interromper o contêiner e desligar o servidor, execute o seguinte comando:
+
 ```sh
 sudo docker stop nutriplanner-app-1
 ```
 
-Os dados do aplicativo são armazenados localmente (dados do perfil do usuário, biblioteca de alimentos e progresso). Para removê-los, pode-se usar:
+Se você desejar remover os dados do aplicativo que foram armazenados localmente (como dados de perfil do usuário, biblioteca de alimentos e progresso), execute o seguinte comando:
+
 ```sh
 sudo docker rm -v nutriplanner-app-1
 ```
 
 #### 😭  Sem o Docker
-Para iniciar o servidor, execute:
+
+Se você não deseja usar o Docker, siga estas etapas alternativas:
+
+Navegue até o diretório "app" dentro do diretório clonado do projeto:
+
 ```sh
-cd app
-```
-```sh
-npx expo start
+cd NutriPlanner/app
 ```
 
-Para desligar o servidor, pressione Ctrl-Z
+Execute o seguinte comando para instalar as dependências do projeto:
 
-Em ambos os casos é usada a porta 19000 para comunicação. Para conectar o Expo Go ao servidor, deve-se digitar dentro do Expo GO a URL no formato exp://IP:19000, onde IP é o ip da máquina em que está rodando o servidor.
+```sh
+npm install
+```
+
+Em seguida, execute o seguinte comando para iniciar o servidor:
+
+```sh
+npm start
+```
+
+Para interromper o servidor, pressione Ctrl-C.
+
+Em ambos os casos, o servidor estará sendo executado na porta 19000. Para conectar o Expo Go ao servidor, você precisa inserir a seguinte URL dentro do Expo Go: `exp://<seu endereço IP>:19000`, onde `<seu endereço IP>` é o endereço IP da máquina em que o servidor está sendo executado.
 
 <div id="licenca"> </div>
 
