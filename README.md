@@ -1,5 +1,6 @@
 <h1 align="center">NutriPlanner</h1>
 <div align="center">
+  <img src="images/icon.png" alt="Icone" height="100", style="border-radius: 30%;">
   <h3 align="center">Seus macros sob controle</h3>
   <p align="center">
   </p>
