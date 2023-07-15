@@ -14,7 +14,7 @@
   ## Sumário
   <ol>
     <li><a href="#sobre-o-projeto">Sobre o Projeto</a></li>
-    <li><a href="#Tecnologias">Tecnologias</a></li>
+    <li><a href="#tecnologias">Tecnologias</a></li>
     <li><a href="#desenvolvedor">Desenvolvedor</a></li>
     <li><a href="#licenca">Licença</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -31,7 +31,7 @@ Foi desenvolvido na disciplina de Projeto Integrado I, por alunos de Ciência da
 
 Clique no <a href="https://expo.dev/accounts/moratti/projects/NutriPlanner/builds/62b416a9-90c5-45e9-b50d-57ae1fb8ad86">link</a> para realizar o download do APK.
 
-<div id="Tecnologias"> </div>
+<div id="tecnologias"> </div>
 
 ## 🔨 Tecnologias
 
